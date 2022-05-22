@@ -4,7 +4,12 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      gridTemplateRows: {
+        layout: "auto minmax(0, 1fr)",
+        accounts: "1fr 1.618fr",
+      },
+    },
   },
   plugins: [],
 };
