@@ -13,7 +13,7 @@ import { today } from "../lib/today";
 import Link from "next/link";
 import ValueDisplay from "../components/value-display";
 
-const HomePage: NextPage<HomePageProps> = ({ accountCategories }) => {
+const AccountsPage: NextPage<AccountsPageProps> = ({ accountCategories }) => {
   return (
     <div className="md:grid-cols-accounts-md lg:grid-cols-accounts-lg xl:grid-cols-accounts-xl 2xl:grid-cols-accounts-2xl grid grid-rows-accounts md:grid-rows-none">
       <section aria-label="Account List" className="overflow-hidden border-b">
@@ -125,14 +125,14 @@ const HomePage: NextPage<HomePageProps> = ({ accountCategories }) => {
   );
 };
 
-export default HomePage;
+export default AccountsPage;
 
-export type HomePageProps = {
+export type AccountsPageProps = {
   accountCategories: AccountCategoryWithAccountsDto[];
 };
 
 export const getServerSideProps: GetServerSideProps<
-  HomePageProps
+  AccountsPageProps
 > = async () => {
   const db = await getDb();
   const accountsByCategoryId = groupBy(
