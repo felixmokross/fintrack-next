@@ -12,6 +12,7 @@ import dayjs from "dayjs";
 import { today } from "../lib/today";
 import Link from "next/link";
 import ValueDisplay from "../components/value-display";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 
 const AccountsPage: NextPage<AccountsPageProps> = ({ accountCategories }) => {
   return (
@@ -131,41 +132,42 @@ export type AccountsPageProps = {
   accountCategories: AccountCategoryWithAccountsDto[];
 };
 
-export const getServerSideProps: GetServerSideProps<
-  AccountsPageProps
-> = async () => {
-  const db = await getDb();
-  const accountsByCategoryId = groupBy(
-    (
-      await db
-        .collection<Account>("accounts")
-        .find()
-        .sort({ name: 1, unit: 1, "unit.currency": 1 })
-        .toArray()
-    ).map(toAccountDto),
-    (ac) => ac.categoryId
-  );
+export const getServerSideProps: GetServerSideProps<AccountsPageProps> =
+  withPageAuthRequired({
+    getServerSideProps: async () => {
+      const db = await getDb();
+      const accountsByCategoryId = groupBy(
+        (
+          await db
+            .collection<Account>("accounts")
+            .find()
+            .sort({ name: 1, unit: 1, "unit.currency": 1 })
+            .toArray()
+        ).map(toAccountDto),
+        (ac) => ac.categoryId
+      );
 
-  return {
-    props: {
-      accountCategories: (
-        await db
-          .collection<AccountCategory>("accountCategories")
-          .find()
-          .sort({ order: 1 })
-          .toArray()
-      )
-        .map(toAccountCategoryDto)
-        .map((ac) => ({
-          ...ac,
-        }))
-        .map((ac) => ({
-          ...ac,
-          accounts: accountsByCategoryId[ac._id],
-        })),
+      return {
+        props: {
+          accountCategories: (
+            await db
+              .collection<AccountCategory>("accountCategories")
+              .find()
+              .sort({ order: 1 })
+              .toArray()
+          )
+            .map(toAccountCategoryDto)
+            .map((ac) => ({
+              ...ac,
+            }))
+            .map((ac) => ({
+              ...ac,
+              accounts: accountsByCategoryId[ac._id],
+            })),
+        },
+      };
     },
-  };
-};
+  });
 
 type AccountCategoryWithAccountsDto = AccountCategoryDto & {
   accounts: AccountDto[];
