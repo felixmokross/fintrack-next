@@ -1,8 +1,24 @@
-import Decimal from "decimal.js-light";
+import Decimal, { Numeric } from "decimal.js-light";
 
 export function ensure<T>(value: T | undefined): T {
   if (value === undefined) throw new Error("Value is undefined");
   return value;
+}
+
+export function sum(values: readonly Numeric[]): Decimal {
+  return values.reduce(
+    (prev: Decimal, curr) => prev.plus(curr),
+    new Decimal(0)
+  );
+}
+
+export function byKey<T, K extends string | number>(
+  collection: readonly T[],
+  keyFunction: (i: T) => K
+): Record<K, T> {
+  return Object.fromEntries(
+    collection.map((i) => [keyFunction(i), i]) as [string, T][]
+  ) as Record<K, T>;
 }
 
 export const locale = "de-CH";

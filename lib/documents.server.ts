@@ -40,3 +40,11 @@ export interface StockAccountUnit {
   kind: AccountUnitKind.STOCK;
   stockId: ObjectId;
 }
+
+export interface MonthBalances {
+  _id: Date;
+  accountCategories: {
+    [accountCategoryId: string]: Decimal128;
+  };
+  netWorth: Decimal128;
+}

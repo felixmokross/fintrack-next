@@ -7,6 +7,8 @@ specifiers:
   '@types/react': 18.0.9
   '@types/react-dom': 18.0.4
   autoprefixer: ^10.4.7
+  chart.js: ^3.7.1
+  chartjs-plugin-datalabels: ^2.0.0
   dayjs: ^1.11.2
   decimal.js-light: ^2.5.1
   eslint: 8.16.0
@@ -19,6 +21,7 @@ specifiers:
   prettier: 2.6.2
   prettier-plugin-tailwindcss: ^0.1.11
   react: 18.1.0
+  react-chartjs-2: ^4.1.0
   react-dom: 18.1.0
   tailwindcss: ^3.0.24
   typescript: 4.6.4
@@ -26,12 +29,15 @@ specifiers:
 dependencies:
   '@auth0/nextjs-auth0': 1.9.0_next@12.1.6
   '@types/lodash': 4.14.182
+  chart.js: 3.7.1
+  chartjs-plugin-datalabels: 2.0.0_chart.js@3.7.1
   dayjs: 1.11.2
   decimal.js-light: 2.5.1
   lodash: 4.17.21
   mongodb: 4.6.0
   next: 12.1.6_react-dom@18.1.0+react@18.1.0
   react: 18.1.0
+  react-chartjs-2: 4.1.0_chart.js@3.7.1+react@18.1.0
   react-dom: 18.1.0_react@18.1.0
 
 devDependencies:
@@ -692,6 +698,18 @@ packages:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
     dev: true
+
+  /chart.js/3.7.1:
+    resolution: {integrity: sha512-8knRegQLFnPQAheZV8MjxIXc5gQEfDFD897BJgv/klO/vtIyFFmgMXrNfgrXpbTr/XbTturxRgxIXx/Y+ASJBA==}
+    dev: false
+
+  /chartjs-plugin-datalabels/2.0.0_chart.js@3.7.1:
+    resolution: {integrity: sha512-WBsWihphzM0Y8fmQVm89+iy99mmgejmj5/jcsYqwxSioLRL/zqJ4Scv/eXq5ZqvG3TpojlGzZLeaOaSvDm7fwA==}
+    peerDependencies:
+      chart.js: ^3.0.0
+    dependencies:
+      chart.js: 3.7.1
+    dev: false
 
   /chokidar/3.5.3:
     resolution: {integrity: sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw==}
@@ -2155,6 +2173,16 @@ packages:
   /quick-lru/5.1.1:
     resolution: {integrity: sha512-WuyALRjWPDGtt/wzJiadO5AXY+8hZ80hVpe6MyivgraREW751X3SbhRvG3eLKOYN+8VEvqLcf3wdnt44Z4S4SA==}
     engines: {node: '>=10'}
+
+  /react-chartjs-2/4.1.0_chart.js@3.7.1+react@18.1.0:
+    resolution: {integrity: sha512-AsUihxEp8Jm1oBhbEovE+w50m9PVNhz1sfwEIT4hZduRC0m14gHWHd0cUaxkFDb8HNkdMIGzsNlmVqKiOpU74g==}
+    peerDependencies:
+      chart.js: ^3.5.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      chart.js: 3.7.1
+      react: 18.1.0
+    dev: false
 
   /react-dom/18.1.0_react@18.1.0:
     resolution: {integrity: sha512-fU1Txz7Budmvamp7bshe4Zi32d0ll7ect+ccxNu9FlObT605GOEB8BfO4tmRJ39R5Zj831VCpvQ05QPBW5yb+w==}
