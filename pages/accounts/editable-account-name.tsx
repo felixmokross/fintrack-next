@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { ReactElement, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { RenameIcon } from "../../components/icons";
 import api from "../../lib/api";
 
@@ -7,7 +7,13 @@ export default function EditableAccountName({
   account,
 }: EditableAccountNameProps): ReactElement {
   const [isEditing, setIsEditing] = useState(false);
-  const [value, setValue] = useState<string>(account.name);
+  const [value, setValue] = useState<string>("");
+
+  // reset when account changes
+  useEffect(() => {
+    setValue(account.name);
+    setIsEditing(false);
+  }, [account._id, account.name]);
 
   if (isEditing) {
     return (
