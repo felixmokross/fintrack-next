@@ -7,6 +7,8 @@ import { AccountType, AccountUnitKind } from "../../lib/enums";
 import { dateFormat } from "../../lib/util";
 import AccountActionsMenu from "./account-actions-menu";
 import EditableAccountName from "./editable-account-name";
+import { NewTransactionDropdown } from "./new-transaction-dropdown";
+import { NewValueChangeModal } from "./new-value-change-modal";
 
 export function AccountDetail({ account }: AccountDetailProps) {
   const [newValueChangeModalOpen, setNewValueChangeModalOpen] = useState(false);
@@ -30,7 +32,7 @@ export function AccountDetail({ account }: AccountDetailProps) {
             <AccountActionsMenu account={account} />
           </div>
           <div>
-            {/* {account.type === AccountType.TRACKED && (
+            {account.type === AccountType.TRACKED && (
               <NewTransactionDropdown account={account} />
             )}
             {account.type === AccountType.VALUATED && (
@@ -48,7 +50,7 @@ export function AccountDetail({ account }: AccountDetailProps) {
                   />
                 )}
               </>
-            )} */}
+            )}
           </div>
         </div>
       </div>
