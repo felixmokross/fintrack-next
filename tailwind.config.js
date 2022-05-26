@@ -1,3 +1,6 @@
+const plugin = require("tailwindcss/plugin");
+const selectorParser = require("postcss-selector-parser");
+
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
@@ -18,5 +21,24 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    // custom group-hover variant since Tailwind CSS does not support nested group-hovers
+    plugin(function ({ addVariant }) {
+      addVariant("secondary-group-hover", ({ modifySelectors, separator }) => {
+        return modifySelectors(({ selector }) => {
+          return selectorParser((selectors) => {
+            selectors.walkClasses((sel) => {
+              sel.value = `secondary-group-hover${separator}${sel.value}`;
+
+              sel.parent.insertBefore(
+                sel,
+                selectorParser().astSync(".secondary-group:hover ")
+              );
+            });
+          }).processSync(selector);
+        });
+      });
+    }),
+    require("@tailwindcss/forms"),
+  ],
 };
