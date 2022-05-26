@@ -1,5 +1,10 @@
 import { Account, AccountCategory, AccountUnit } from "./documents.server";
-import { AccountCategoryDto, AccountDto, AccountUnitDto } from "./dtos";
+import {
+  AccountCategoryDto,
+  AccountDetailDto,
+  AccountDto,
+  AccountUnitDto,
+} from "./dtos";
 import { AccountUnitKind } from "./enums";
 import { ensure } from "./util";
 
@@ -30,6 +35,22 @@ export function toAccountDto(account: Account): AccountDto {
         account.currentBalance.valueInReferenceCurrency.toString(),
       valueInAccountUnit: account.currentBalance.valueInAccountUnit.toString(),
     },
+    closingDate: account.closingDate?.toUTCString() || null,
+  };
+}
+
+export function toAccountDetailDto(account: Account): AccountDetailDto {
+  return {
+    _id: ensure(account._id).toHexString(),
+    name: account.name,
+    type: account.type,
+    unit: toAccountUnitDto(account.unit),
+    categoryId: account.categoryId.toHexString(),
+    categoryType: account.categoryType,
+    groupId: account.groupId?.toHexString() || null,
+    isActive: account.isActive,
+    openingBalance: account.openingBalance?.toString() || null,
+    openingDate: account.openingDate?.toUTCString() || null,
     closingDate: account.closingDate?.toUTCString() || null,
   };
 }

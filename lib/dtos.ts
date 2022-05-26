@@ -18,6 +18,20 @@ export interface AccountDto {
   closingDate: string | null;
 }
 
+export interface AccountDetailDto {
+  _id: string;
+  name: string;
+  type: AccountType;
+  unit: AccountUnitDto;
+  categoryId: string;
+  categoryType: AccountCategoryType;
+  groupId: string | null;
+  isActive: boolean;
+  openingBalance: string | null;
+  openingDate: string | null;
+  closingDate: string | null;
+}
+
 export type AccountUnitDto = CurrencyAccountUnitDto | StockAccountUnitDto;
 
 export interface CurrencyAccountUnitDto {
