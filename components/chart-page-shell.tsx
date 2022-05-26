@@ -15,7 +15,7 @@ import {
 import type { Defaults } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { merge } from "lodash";
-import { PropsWithChildren, ReactElement, useLayoutEffect } from "react";
+import { PropsWithChildren, ReactElement, useEffect } from "react";
 import { defaults } from "chart.js";
 import { useThemeContext, Theme } from "./theme-context";
 
@@ -39,7 +39,8 @@ export function ChartPageShell({
 }: PropsWithChildren<{}>): ReactElement {
   const { theme } = useThemeContext();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
+    // TODO does this still work well? need to set up change handlers again for theme change
     const isDark = theme === Theme.DARK;
 
     merge(defaults, {

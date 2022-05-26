@@ -3,7 +3,7 @@ import {
   PropsWithChildren,
   ReactElement,
   useContext,
-  useLayoutEffect,
+  useEffect,
   useState,
 } from "react";
 
@@ -23,7 +23,7 @@ export function ThemeProvider({
 }: PropsWithChildren<{}>): ReactElement {
   const [theme, setTheme] = useState<Theme>(Theme.LIGHT);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
       setTheme(Theme.DARK);
     }
@@ -44,21 +44,4 @@ export function useThemeContext(): ThemeContext {
 
 export interface ThemeContext {
   theme: Theme;
-}
-
-export function ThemeBed({
-  children,
-}: PropsWithChildren<{}>): ReactElement | null {
-  const { theme } = useThemeContext();
-  const [reloading, setReloading] = useState(false);
-  useLayoutEffect(() => {
-    setReloading(true);
-  }, [theme]);
-
-  useLayoutEffect(() => {
-    setReloading(false);
-  }, [reloading]);
-
-  if (reloading) return null;
-  return <>{children}</>;
 }

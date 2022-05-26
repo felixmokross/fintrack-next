@@ -4,9 +4,7 @@ import { byKey, sum } from "../../lib/util";
 import { formatAllocationLabel } from "../../lib/format-allocation-label";
 import "chartjs-plugin-datalabels";
 import { ButtonGroup } from "../../components/button-group";
-import { ThemeBed } from "../../components/theme-context";
 import { ChartPageShell } from "../../components/chart-page-shell";
-import { GetServerSideProps } from "next";
 import Decimal from "decimal.js-light";
 import { getDb } from "../../lib/mongodb.server";
 import { AccountCategory, MonthBalances } from "../../lib/documents.server";
@@ -44,37 +42,35 @@ export default function AllocationPage({ data, total }: AllocationPageProps) {
           </div>
         </div>
         <div className="grow">
-          <ThemeBed>
-            <Doughnut
-              data={{
-                labels: data.map(([label]) => label),
-                datasets: [{ data: data.map(([, value]) => value) }],
-              }}
-              options={{
-                maintainAspectRatio: false,
-                layout: { padding: 30 },
-                plugins: {
-                  datalabels: {
-                    formatter: (value, { dataIndex }) =>
-                      formatAllocationLabel(
-                        data[dataIndex][0],
-                        value,
-                        new Decimal(total!)
-                      ),
-                    backgroundColor: "#3B82F6",
-                    borderRadius: 4,
-                    color: "white",
-                    font: { weight: "normal" },
-                    padding: 6,
-                    align: "end",
-                    anchor: "end",
-                  },
-                  legend: { display: false },
-                  tooltip: { enabled: false },
+          <Doughnut
+            data={{
+              labels: data.map(([label]) => label),
+              datasets: [{ data: data.map(([, value]) => value) }],
+            }}
+            options={{
+              maintainAspectRatio: false,
+              layout: { padding: 30 },
+              plugins: {
+                datalabels: {
+                  formatter: (value, { dataIndex }) =>
+                    formatAllocationLabel(
+                      data[dataIndex][0],
+                      value,
+                      new Decimal(total!)
+                    ),
+                  backgroundColor: "#3B82F6",
+                  borderRadius: 4,
+                  color: "white",
+                  font: { weight: "normal" },
+                  padding: 6,
+                  align: "end",
+                  anchor: "end",
                 },
-              }}
-            />
-          </ThemeBed>
+                legend: { display: false },
+                tooltip: { enabled: false },
+              },
+            }}
+          />
         </div>
       </div>
     </ChartPageShell>
