@@ -1,17 +1,17 @@
-import type { GetServerSideProps, NextPage } from "next";
-import { Button, ButtonVariant } from "../components/button";
-import { Account, AccountCategory } from "../lib/documents.server";
-import { AccountCategoryDto, AccountDto, AccountUnitDto } from "../lib/dtos";
-import { AccountCategoryType, AccountUnitKind } from "../lib/enums";
-import { getDb } from "../lib/mongodb.server";
-import { formatUnitValue, RoundingMode } from "../lib/util";
+import type { NextPage } from "next";
+import { Button, ButtonVariant } from "../../components/button";
+import { Account, AccountCategory } from "../../lib/documents.server";
+import { AccountCategoryDto, AccountDto, AccountUnitDto } from "../../lib/dtos";
+import { AccountCategoryType, AccountUnitKind } from "../../lib/enums";
+import { getDb } from "../../lib/mongodb.server";
+import { formatUnitValue, RoundingMode } from "../../lib/util";
 import { groupBy } from "lodash";
-import { toAccountCategoryDto, toAccountDto } from "../lib/mappings.server";
+import { toAccountCategoryDto, toAccountDto } from "../../lib/mappings.server";
 import Decimal from "decimal.js-light";
 import dayjs from "dayjs";
-import { today } from "../lib/today";
+import { today } from "../../lib/today";
 import Link from "next/link";
-import ValueDisplay from "../components/value-display";
+import ValueDisplay from "../../components/value-display";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 
 const AccountsPage: NextPage<AccountsPageProps> = ({ accountCategories }) => {
