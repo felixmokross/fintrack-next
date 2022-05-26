@@ -51,3 +51,7 @@ export interface AccountCategoryDto {
   order: number;
   currentBalance: string;
 }
+
+export interface RenameAccountDto {
+  name: string;
+}

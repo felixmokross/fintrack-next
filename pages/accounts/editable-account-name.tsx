@@ -1,9 +1,7 @@
+import { useRouter } from "next/router";
 import { ReactElement, useState } from "react";
 import { RenameIcon } from "../../components/icons";
-// import { useMutation, useQueryClient } from "react-query";
-// import { AccountDetailDto, RenameAccountDto } from "../api.generated/accounts/dtos";
-// import { RenameIcon } from "../common/icons";
-// import useApi from "../common/useApi";
+import api from "../../lib/api";
 
 export default function EditableAccountName({
   account,
@@ -62,11 +60,7 @@ function AccountNameEditor({
   onChange,
   onStopEditing,
 }: AccountNameEditorProps): ReactElement {
-  //   const queryClient = useQueryClient();
-
-  //   const { mutateAsync } = useMutation(renameAccountAsync);
-  //   const api = useApi<void, RenameAccountDto>();
-
+  const { replace, pathname } = useRouter();
   return (
     <form
       onSubmit={(e) => {
@@ -99,25 +93,15 @@ function AccountNameEditor({
       return;
     }
 
-    // await mutateAsync({ accountId: account._id, name: value });
-
-    // queryClient.setQueryData<AccountDetailDto | undefined>(
-    //   ["accounts", account._id],
-    //   (a) => a && { ...a, name: value }
-    // );
-    // await queryClient.invalidateQueries(["accounts", "allById"]);
+    await renameAccount(account._id, value);
 
     onStopEditing();
+
+    replace(`${location.pathname}${location.search}`);
   }
 
-  async function renameAccountAsync({
-    accountId,
-    name,
-  }: {
-    accountId: string;
-    name: string;
-  }): Promise<void> {
-    // await api(`/api/accounts/${accountId}/name`, "PUT", { name });
+  async function renameAccount(accountId: string, name: string): Promise<void> {
+    await api(`/api/accounts/${accountId}/name`, "PUT", { name });
   }
 }
 
