@@ -7,6 +7,7 @@ import { UserProvider } from "@auth0/nextjs-auth0";
 import { ThemeProvider } from "../components/theme-context";
 import { useRouter } from "next/router";
 import { PropsWithChildren } from "react";
+import { LoadingIndicator } from "./api/loading-indicator";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -19,6 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <div className="hidden sm:flex sm:space-x-8">
                   <NavLink href="/allocation">Allocation</NavLink>
                   <NavLink href="/accounts">Accounts</NavLink>
+                  <LoadingIndicator />
                 </div>
 
                 <div className="flex items-center sm:space-x-8">
