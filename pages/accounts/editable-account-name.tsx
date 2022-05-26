@@ -6,23 +6,28 @@ import api from "../../lib/api";
 export default function EditableAccountName({
   account,
 }: EditableAccountNameProps): ReactElement {
-  const [value, setValue] = useState<string | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [value, setValue] = useState<string>(account.name);
 
-  if (value !== null) {
+  if (isEditing) {
     return (
       <AccountNameEditor
         account={account}
         value={value}
         onChange={(v) => setValue(v)}
-        onStopEditing={() => setValue(null)}
+        onDismiss={() => {
+          setIsEditing(false);
+          setValue(account.name);
+        }}
+        onSave={() => setIsEditing(false)}
       />
     );
   }
 
   return (
     <AccountNameDisplay
-      accountName={account.name}
-      onStartEditing={() => setValue(account.name)}
+      accountName={value}
+      onStartEditing={() => setIsEditing(true)}
     />
   );
 }
@@ -58,9 +63,10 @@ function AccountNameEditor({
   account,
   value,
   onChange,
-  onStopEditing,
+  onSave,
+  onDismiss,
 }: AccountNameEditorProps): ReactElement {
-  const { replace, pathname } = useRouter();
+  const { replace } = useRouter();
   return (
     <form
       onSubmit={(e) => {
@@ -75,11 +81,11 @@ function AccountNameEditor({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         onFocus={(e) => e.target.select()}
-        onBlur={onStopEditing}
+        onBlur={onDismiss}
         onKeyDown={(e) => {
           switch (e.key) {
             case "Escape":
-              onStopEditing();
+              onDismiss();
               return;
           }
         }}
@@ -89,13 +95,13 @@ function AccountNameEditor({
 
   async function onSubmit(): Promise<void> {
     if (!value || value === account.name) {
-      onStopEditing();
+      onDismiss();
       return;
     }
 
     await renameAccount(account._id, value);
 
-    onStopEditing();
+    onSave();
 
     replace(`${location.pathname}${location.search}`);
   }
@@ -109,5 +115,6 @@ interface AccountNameEditorProps {
   account: { _id: string; name: string };
   value: string;
   onChange: (value: string) => void;
-  onStopEditing: () => void;
+  onSave: () => void;
+  onDismiss: () => void;
 }
