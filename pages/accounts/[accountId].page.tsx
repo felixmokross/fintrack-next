@@ -44,12 +44,17 @@ export const getServerSideProps = withPageAuthRequired<
     if (!params) throw new Error("No params");
 
     const db = await getDb();
-    const account = await getAccountDetail(db, params.accountId);
+
+    const [account, accountCategories] = await Promise.all([
+      getAccountDetail(db, params.accountId),
+      getAccountCategoriesWithAccounts(db),
+    ]);
+
     if (!account) return { notFound: true };
 
     return {
       props: {
-        accountCategories: await getAccountCategoriesWithAccounts(db),
+        accountCategories,
         account,
       },
     };
