@@ -1,13 +1,14 @@
 import dayjs from "dayjs";
 import Decimal from "decimal.js-light";
 import Link from "next/link";
-import { Button, ButtonVariant } from "../../../components/button";
-import ValueDisplay from "../../../components/value-display";
-import { AccountUnitDto } from "../../../lib/dtos";
-import { AccountCategoryType, AccountUnitKind } from "../../../lib/enums";
+import { AccountUnitDto } from "../../shared/accounts/dtos";
+import { AccountCategoryType } from "../../../lib/enums";
+import { AccountUnitKind } from "../../shared/accounts/enums";
 import { today } from "../../../lib/today";
 import { formatUnitValue, RoundingMode } from "../../../lib/util";
 import { AccountCategoryWithAccountsDto } from "./dtos";
+import { Button, ButtonVariant } from "../../shared/button";
+import ValueDisplay from "../../shared/value-display";
 
 export function AccountList({ accountCategories }: AccountListProps) {
   return (

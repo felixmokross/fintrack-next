@@ -1,7 +1,7 @@
 import { PropsWithChildren, ReactElement, useContext } from "react";
-import { cn } from "../lib/classnames";
+import { cn } from "../../../lib/classnames";
+import { IconComponentType } from "../icons";
 import DropdownContext from "./dropdown-context";
-import { IconComponentType } from "./icons";
 
 export function DropdownButton({
   children,

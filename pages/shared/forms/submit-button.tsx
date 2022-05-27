@@ -1,6 +1,6 @@
 import { useFormikContext } from "formik";
 import { PropsWithChildren } from "react";
-import { Button, ButtonVariant } from "./button";
+import { Button, ButtonVariant } from "../button";
 
 export default function SubmitButton({
   variant = ButtonVariant.PRIMARY,

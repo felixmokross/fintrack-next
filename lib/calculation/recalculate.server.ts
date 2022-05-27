@@ -1,12 +1,8 @@
 import { Dayjs } from "dayjs";
 import { groupBy } from "lodash";
 import { Db, Decimal128, ObjectId } from "mongodb";
-import {
-  Account,
-  AccountCategory,
-  DayBalances,
-  Transaction,
-} from "../documents.server";
+import { AccountCategory, DayBalances, Transaction } from "../documents.server";
+import { Account } from "../../pages/shared/accounts/documents.server";
 import { TransactionModel } from "../model.server";
 import {
   deserializeId,

@@ -1,7 +1,7 @@
 import { ReactElement, useEffect, useState } from "react";
-import { RenameIcon } from "../../../components/icons";
 import api from "../../../lib/api";
 import { useReload } from "../../../lib/reload";
+import { RenameIcon } from "../../shared/icons";
 
 export default function EditableAccountName({
   account,

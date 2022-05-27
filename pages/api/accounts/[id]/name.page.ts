@@ -1,6 +1,6 @@
 import { withApiAuthRequired } from "@auth0/nextjs-auth0";
-import { Account } from "../../../../lib/documents.server";
-import { RenameAccountDto } from "../../../../lib/dtos";
+import { Account } from "../../../shared/accounts/documents.server";
+import { RenameAccountDto } from "../../../shared/accounts/dtos";
 import { getDb } from "../../../../lib/mongodb.server";
 import { serializeId } from "../../../../lib/serialization.server";
 

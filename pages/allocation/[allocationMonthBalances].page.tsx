@@ -3,13 +3,13 @@ import { Doughnut } from "react-chartjs-2";
 import { byKey, sum } from "../../lib/util";
 import { formatAllocationLabel } from "../../lib/format-allocation-label";
 import "chartjs-plugin-datalabels";
-import { ButtonGroup } from "../../components/button-group";
-import { ChartPageShell } from "../../components/chart-page-shell";
 import Decimal from "decimal.js-light";
 import { getDb } from "../../lib/mongodb.server";
 import { AccountCategory, MonthBalances } from "../../lib/documents.server";
 import { useRouter } from "next/router";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
+import { ChartPageShell } from "../shared/chart-page-shell";
+import { ButtonGroup } from "../shared/button-group";
 
 export default function AllocationPage({ data, total }: AllocationPageProps) {
   const { query, replace } = useRouter();

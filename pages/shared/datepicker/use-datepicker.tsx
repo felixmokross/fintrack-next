@@ -1,7 +1,7 @@
 import dayjs, { Dayjs } from "dayjs";
 import { range } from "lodash";
 import { useState } from "react";
-import { today } from "../../lib/today";
+import { today } from "../../../lib/today";
 
 export function useDatepicker(
   initialDate?: Dayjs,

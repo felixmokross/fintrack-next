@@ -2,13 +2,13 @@ import { Dayjs } from "dayjs";
 import { groupBy } from "lodash";
 import { Db } from "mongodb";
 import {
-  Account,
   AccountCategory,
   DayBalances,
   MonthBalances,
   MonthPeriod,
   Period,
 } from "../documents.server";
+import { Account } from "../../pages/shared/accounts/documents.server";
 import { globalOpeningDate } from "../global-opening-date.server";
 import {
   AccountModel,

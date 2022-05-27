@@ -1,6 +1,7 @@
 import dayjs, { Dayjs } from "dayjs";
 import { Db } from "mongodb";
-import { Account, DayBalances } from "../documents.server";
+import { DayBalances } from "../documents.server";
+import { Account } from "../../pages/shared/accounts/documents.server";
 import { globalOpeningDate } from "../global-opening-date.server";
 import {
   AccountModel,

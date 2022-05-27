@@ -5,8 +5,8 @@ import {
   ValueChangeFormValues,
 } from "./value-change-form";
 import { useReload } from "../../../lib/reload";
-import { Modal } from "../../../components/modal";
 import api from "../../../lib/api";
+import { Modal } from "../modal";
 
 export function NewValueChangeModal({
   accountId,

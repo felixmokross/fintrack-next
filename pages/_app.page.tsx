@@ -4,10 +4,10 @@ import Link, { LinkProps } from "next/link";
 import { cn } from "../lib/classnames";
 import "../lib/dayjs.init";
 import { UserProvider } from "@auth0/nextjs-auth0";
-import { ThemeProvider } from "../components/theme-context";
 import { useRouter } from "next/router";
 import { PropsWithChildren } from "react";
 import { LoadingIndicator } from "./api/loading-indicator";
+import { ThemeProvider } from "./shared/theme-context";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

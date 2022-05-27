@@ -1,12 +1,7 @@
 import { Dayjs } from "dayjs";
 import Decimal from "decimal.js-light";
-import {
-  AccountCategoryType,
-  AccountType,
-  AccountUnitKind,
-  BookingType,
-  PeriodType,
-} from "./enums";
+import { AccountCategoryType, BookingType, PeriodType } from "./enums";
+import { AccountType, AccountUnitKind } from "../pages/shared/accounts/enums";
 
 export interface AccountModel {
   _id: string;

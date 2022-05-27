@@ -1,5 +1,5 @@
-import { Modal, ModalSize } from "../../../components/modal";
-import { AccountDetailDto } from "../../../lib/dtos";
+import { AccountDetailDto } from "../accounts/dtos";
+import { Modal, ModalSize } from "../modal";
 
 const title = "New Transaction";
 

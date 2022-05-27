@@ -1,6 +1,9 @@
 import Decimal from "decimal.js-light";
 import { groupBy } from "lodash";
-import { AccountType, AccountUnitKind } from "../enums";
+import {
+  AccountType,
+  AccountUnitKind,
+} from "../../pages/shared/accounts/enums";
 import {
   AccountModel,
   CurrencyAccountModel,

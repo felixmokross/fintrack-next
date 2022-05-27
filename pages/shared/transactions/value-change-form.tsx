@@ -1,12 +1,6 @@
 import { ReactElement } from "react";
-import { ModalBody, ModalFooter } from "../../../components/modal";
-import Form from "../../../components/form";
 import { dateFormat } from "../../../lib/util";
-import { DatepickerInput } from "../../../components/datepicker/datepicker-input";
-import { Labeled } from "../../../components/labeled";
-import { Input } from "../../../components/input";
-import SubmitButton from "../../../components/submit-button";
-import { Button, ButtonVariant } from "../../../components/button";
+import { DatepickerInput } from "../datepicker/datepicker-input";
 import {
   SaveTransactionBookingDto,
   SaveTransactionDto,
@@ -15,6 +9,12 @@ import { BookingType } from "../../../lib/enums";
 import Decimal from "decimal.js-light";
 import dayjs from "dayjs";
 import { FormikErrors } from "formik";
+import { ModalBody, ModalFooter } from "../modal";
+import { Labeled } from "../forms/labeled";
+import Form from "../forms/form";
+import { Input } from "../forms/input";
+import SubmitButton from "../forms/submit-button";
+import { Button, ButtonVariant } from "../button";
 
 export function ValueChangeForm({
   title,

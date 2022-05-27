@@ -2,8 +2,6 @@ import dayjs, { Dayjs } from "dayjs";
 import Decimal, { Numeric } from "decimal.js-light";
 import { Decimal128, ObjectId } from "mongodb";
 import {
-  Account,
-  AccountUnit,
   Appreciation,
   Booking,
   Charge,
@@ -19,12 +17,17 @@ import {
   MonthPeriod,
   Period,
   ProfitOrLossEntry,
-  StockAccountUnit,
   Transaction,
   TransferProfitOrLossSection,
   ValueProfitOrLossSection,
 } from "./documents.server";
-import { AccountUnitKind, BookingType } from "./enums";
+import {
+  Account,
+  AccountUnit,
+  StockAccountUnit,
+} from "../pages/shared/accounts/documents.server";
+import { BookingType } from "./enums";
+import { AccountUnitKind } from "../pages/shared/accounts/enums";
 import {
   AccountModel,
   AccountUnitModel,

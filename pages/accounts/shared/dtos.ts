@@ -1,4 +1,4 @@
-import { AccountCategoryDto, AccountDto } from "../../../lib/dtos";
+import { AccountCategoryDto, AccountDto } from "../../shared/accounts/dtos";
 
 export type AccountCategoryWithAccountsDto = AccountCategoryDto & {
   accounts: AccountDto[];

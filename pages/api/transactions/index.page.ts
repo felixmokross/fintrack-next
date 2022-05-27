@@ -1,7 +1,8 @@
 import { withApiAuthRequired } from "@auth0/nextjs-auth0";
 import dayjs from "dayjs";
 import { recalculate } from "../../../lib/calculation/recalculate.server";
-import { Account, Transaction } from "../../../lib/documents.server";
+import { Transaction } from "../../../lib/documents.server";
+import { Account } from "../../shared/accounts/documents.server";
 import { SaveTransactionDto } from "../../../lib/dtos";
 import { toBooking } from "../../../lib/mappings.server";
 import { getDb } from "../../../lib/mongodb.server";

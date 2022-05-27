@@ -1,6 +1,7 @@
 import Decimal from "decimal.js-light";
 import { flatten } from "lodash";
-import { AccountUnitKind, BookingType } from "../enums";
+import { BookingType } from "../enums";
+import { AccountUnitKind } from "../../pages/shared/accounts/enums";
 import {
   AccountModel,
   AppreciationModel,

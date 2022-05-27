@@ -1,12 +1,12 @@
 import { ReactElement, useState } from "react";
-import Dropdown, {
-  DropdownTriggerButtonVariant,
-} from "../../../components/dropdown";
-import { DropdownButton } from "../../../components/dropdown-button";
-import { AccountDetailDto } from "../../../lib/dtos";
+import { DropdownButton } from "../../shared/dropdown/dropdown-button";
+import { AccountDetailDto } from "../../shared/accounts/dtos";
 import NewTransactionModal, {
   TransactionTemplate,
 } from "../../shared/transactions/new-transaction-modal";
+import Dropdown, {
+  DropdownTriggerButtonVariant,
+} from "../../shared/dropdown/dropdown";
 
 export function NewTransactionDropdown({
   account,

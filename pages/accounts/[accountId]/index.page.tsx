@@ -1,6 +1,6 @@
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { NextPage } from "next";
-import { AccountDetailDto } from "../../../lib/dtos";
+import { AccountDetailDto } from "../../shared/accounts/dtos";
 import { getDb } from "../../../lib/mongodb.server";
 import { AccountDetail } from "./account-detail";
 import { AccountList } from "../shared/account-list";
@@ -8,9 +8,12 @@ import { getAccountCategoriesWithAccounts } from "../shared/data-loading.server"
 import { AccountDetailLayout, PageLayout } from "../shared/layouts";
 import { AccountCategoryWithAccountsDto } from "../shared/dtos";
 import { Db } from "mongodb";
-import { Account } from "../../../lib/documents.server";
+import {
+  Account,
+  toAccountUnitDto,
+} from "../../shared/accounts/documents.server";
 import { serializeId } from "../../../lib/serialization.server";
-import { toAccountDetailDto } from "../../../lib/mappings.server";
+import { ensure } from "../../../lib/util";
 
 const AccountsDetailPage: NextPage<
   AccountsDetailPageProps,
@@ -71,4 +74,20 @@ async function getAccountDetail(
     .findOne({ _id: serializeId(accountId) });
 
   return account ? toAccountDetailDto(account) : null;
+}
+
+function toAccountDetailDto(account: Account): AccountDetailDto {
+  return {
+    _id: ensure(account._id).toHexString(),
+    name: account.name,
+    type: account.type,
+    unit: toAccountUnitDto(account.unit),
+    categoryId: account.categoryId.toHexString(),
+    categoryType: account.categoryType,
+    groupId: account.groupId?.toHexString() || null,
+    isActive: account.isActive,
+    openingBalance: account.openingBalance?.toString() || null,
+    openingDate: account.openingDate?.toUTCString() || null,
+    closingDate: account.closingDate?.toUTCString() || null,
+  };
 }

@@ -4,10 +4,10 @@ import {
   ReactElement,
   useState,
 } from "react";
-import { cn } from "../lib/classnames";
+import { cn } from "../../../lib/classnames";
+import { DropdownChevron } from "../icons";
 import DropdownContext from "./dropdown-context";
 import { DropdownMenu, DropdownMenuSize } from "./dropdown-menu";
-import { DropdownChevron } from "./icons";
 
 export default function Dropdown({
   children,
