@@ -11,14 +11,15 @@ import {
   ModalSize,
 } from "../../components/modal";
 import SubmitButton from "../../components/submit-button";
+import api from "../../lib/api";
+import { useReload } from "../../lib/reload";
 import { dateFormat } from "../../lib/util";
 
 export default function CloseAccountModal({
   accountId,
   onClose,
 }: CloseAccountModalProps): ReactElement {
-  //   const queryClient = useQueryClient();
-  //   const api = useApi<void, AccountClosingDateDto>();
+  const reload = useReload();
   return (
     <Modal size={ModalSize.SMALL}>
       <Form<CloseAccountFormValues>
@@ -56,12 +57,13 @@ export default function CloseAccountModal({
   );
 
   async function onSubmit(values: CloseAccountFormValues) {
-    // await api(`/api/accounts/${accountId}/closingdate`, "PUT", {
-    //   closingDate: dayjs.utc(values.date, dateFormat).format("YYYY-MM-DD"),
-    // });
-    // await queryClient.invalidateQueries(["accounts"]);
+    await api(`/api/accounts/${accountId}/closing-date`, "PUT", {
+      closingDate: dayjs.utc(values.date, dateFormat).format("YYYY-MM-DD"),
+    });
 
     onClose();
+
+    reload();
   }
 }
 

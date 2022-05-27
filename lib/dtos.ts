@@ -55,3 +55,7 @@ export interface AccountCategoryDto {
 export interface RenameAccountDto {
   name: string;
 }
+
+export interface AccountClosingDateDto {
+  closingDate?: string;
+}

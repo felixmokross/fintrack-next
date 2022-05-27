@@ -1,7 +1,7 @@
-import { useRouter } from "next/router";
 import { ReactElement, useEffect, useState } from "react";
 import { RenameIcon } from "../../components/icons";
 import api from "../../lib/api";
+import { useReload } from "../../lib/reload";
 
 export default function EditableAccountName({
   account,
@@ -72,7 +72,7 @@ function AccountNameEditor({
   onSave,
   onDismiss,
 }: AccountNameEditorProps): ReactElement {
-  const { replace } = useRouter();
+  const reload = useReload();
   return (
     <form
       onSubmit={(e) => {
@@ -109,7 +109,7 @@ function AccountNameEditor({
 
     onSave();
 
-    replace(`${location.pathname}${location.search}`);
+    reload();
   }
 
   async function renameAccount(accountId: string, name: string): Promise<void> {

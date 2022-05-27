@@ -11,7 +11,7 @@ export function deserializeDecimal(value: Decimal128): Decimal {
 }
 
 export function serializeId(id: string): ObjectId {
-  return new ObjectId(id);
+  return ObjectId.createFromHexString(id);
 }
 
 export function deserializeId(id: ObjectId): string {

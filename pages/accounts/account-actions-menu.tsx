@@ -1,32 +1,17 @@
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useState } from "react";
 import ActionsButton from "../../components/actions-button";
 import Dropdown from "../../components/dropdown";
 import { DropdownButton } from "../../components/dropdown-button";
 import { CloseIcon, ReopenIcon } from "../../components/icons";
+import api from "../../lib/api";
+import { useReload } from "../../lib/reload";
 import CloseAccountModal from "./close-account-modal";
 
 export default function AccountActionsMenu({
   account,
 }: AccountActionsMenuProps): ReactElement {
   const [showCloseAccountModal, setShowCloseAccountModal] = useState(false);
-  //   const queryClient = useQueryClient();
-  //   const { mutateAsync } = useMutation(reopenAccountAsync);
-  //   const api = useApi<void, AccountClosingDateDto>();
-
-  const [reopenAccount, setReopenAccount] = useState(false);
-
-  useEffect(() => {
-    if (!reopenAccount) return;
-
-    (async function () {
-      //   await mutateAsync(account._id);
-      //   await queryClient.invalidateQueries(["accounts"]);
-    })();
-  }, [
-    reopenAccount,
-    // mutateAsync, queryClient,
-    account._id,
-  ]);
+  const reload = useReload();
 
   return (
     <>
@@ -45,7 +30,11 @@ export default function AccountActionsMenu({
         )}
         {account.closingDate && (
           <DropdownButton
-            onClick={() => setReopenAccount(true)}
+            onClick={async () => {
+              await reopenAccount(account._id);
+
+              reload();
+            }}
             icon={ReopenIcon}
           >
             Reopen Account
@@ -61,8 +50,8 @@ export default function AccountActionsMenu({
     </>
   );
 
-  async function reopenAccountAsync(accountId: string): Promise<void> {
-    // await api(`/api/accounts/${accountId}/closingdate`, "PUT", {});
+  async function reopenAccount(accountId: string): Promise<void> {
+    await api(`/api/accounts/${accountId}/closing-date`, "PUT", {});
   }
 }
 
