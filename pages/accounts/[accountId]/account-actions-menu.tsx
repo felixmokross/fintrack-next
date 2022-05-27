@@ -1,10 +1,10 @@
 import { ReactElement, useState } from "react";
-import ActionsButton from "../../components/actions-button";
-import Dropdown from "../../components/dropdown";
-import { DropdownButton } from "../../components/dropdown-button";
-import { CloseIcon, ReopenIcon } from "../../components/icons";
-import api from "../../lib/api";
-import { useReload } from "../../lib/reload";
+import ActionsButton from "../../../components/actions-button";
+import Dropdown from "../../../components/dropdown";
+import { DropdownButton } from "../../../components/dropdown-button";
+import { CloseIcon, ReopenIcon } from "../../../components/icons";
+import api from "../../../lib/api";
+import { useReload } from "../../../lib/reload";
 import CloseAccountModal from "./close-account-modal";
 
 export default function AccountActionsMenu({

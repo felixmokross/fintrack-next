@@ -1,19 +1,19 @@
-import { Modal, ModalSize } from "../../components/modal";
-import { AccountDetailDto } from "../../lib/dtos";
+import { Modal, ModalSize } from "../../../components/modal";
+import { AccountDetailDto } from "../../../lib/dtos";
 
 const title = "New Transaction";
 
 export default function NewTransactionModal({
-    account,
-    onClose,
-    template,
+  account,
+  onClose,
+  template,
 }: NewTransactionModalProps): React.ReactElement {
-    // const invalidateCalculations = useInvalidateCalculations();
-    // const { mutateAsync } = useMutation(createTransactionAsync);
-    // const api = useApi<void, SaveTransactionDto>();
-    return (
-        <Modal size={ModalSize.LARGE}>
-            {/* <Query
+  // const invalidateCalculations = useInvalidateCalculations();
+  // const { mutateAsync } = useMutation(createTransactionAsync);
+  // const api = useApi<void, SaveTransactionDto>();
+  return (
+    <Modal size={ModalSize.LARGE}>
+      {/* <Query
                 options={accountsByIdQuery()}
                 loadingIndicator={<TransactionFormSkeleton title={title} />}
                 render={(accountsById) => (
@@ -33,22 +33,22 @@ export default function NewTransactionModal({
                     />
                 )}
             /> */}
-        </Modal>
-    );
+    </Modal>
+  );
 
-    // async function createTransactionAsync(values: TransactionFormValues): Promise<void> {
-    //     await api("/api/transactions", "POST", {
-    //         date: dayjs.utc(values.date, dateFormat).format("YYYY-MM-DD"),
-    //         note: values.note || undefined,
-    //         bookings: values.bookings.map(toSaveTransactionBookingDto),
-    //     });
-    // }
+  // async function createTransactionAsync(values: TransactionFormValues): Promise<void> {
+  //     await api("/api/transactions", "POST", {
+  //         date: dayjs.utc(values.date, dateFormat).format("YYYY-MM-DD"),
+  //         note: values.note || undefined,
+  //         bookings: values.bookings.map(toSaveTransactionBookingDto),
+  //     });
+  // }
 }
 
 export interface NewTransactionModalProps {
-    account: AccountDetailDto;
-    onClose: () => void;
-    template: TransactionTemplate;
+  account: AccountDetailDto;
+  onClose: () => void;
+  template: TransactionTemplate;
 }
 
 // function getInitialValues(account: AccountDetailDto, template: TransactionTemplate): TransactionFormValues {
@@ -160,8 +160,8 @@ export interface NewTransactionModalProps {
 // }
 
 export enum TransactionTemplate {
-    INCOME = "INCOME",
-    EXPENSE = "EXPENSE",
-    TRANSFER_IN = "TRANSFER_IN",
-    TRANSFER_OUT = "TRANSFER_OUT",
+  INCOME = "INCOME",
+  EXPENSE = "EXPENSE",
+  TRANSFER_IN = "TRANSFER_IN",
+  TRANSFER_OUT = "TRANSFER_OUT",
 }

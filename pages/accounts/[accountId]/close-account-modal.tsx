@@ -1,19 +1,19 @@
 import dayjs from "dayjs";
 import { FormikErrors } from "formik";
 import { ReactElement } from "react";
-import { Button, ButtonVariant } from "../../components/button";
-import { DatepickerInput } from "../../components/datepicker/datepicker-input";
-import Form from "../../components/form";
+import { Button, ButtonVariant } from "../../../components/button";
+import { DatepickerInput } from "../../../components/datepicker/datepicker-input";
+import Form from "../../../components/form";
 import {
   Modal,
   ModalBody,
   ModalFooter,
   ModalSize,
-} from "../../components/modal";
-import SubmitButton from "../../components/submit-button";
-import api from "../../lib/api";
-import { useReload } from "../../lib/reload";
-import { dateFormat } from "../../lib/util";
+} from "../../../components/modal";
+import SubmitButton from "../../../components/submit-button";
+import api from "../../../lib/api";
+import { useReload } from "../../../lib/reload";
+import { dateFormat } from "../../../lib/util";
 
 export default function CloseAccountModal({
   accountId,

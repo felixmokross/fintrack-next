@@ -1,14 +1,11 @@
 import { groupBy } from "lodash";
-import { Db, ObjectId } from "mongodb";
-import { Account, AccountCategory } from "../../lib/documents.server";
-import { AccountDetailDto } from "../../lib/dtos";
+import { Db } from "mongodb";
+import { Account, AccountCategory } from "../../../lib/documents.server";
 import {
   toAccountCategoryDto,
-  toAccountDetailDto,
   toAccountDto,
-} from "../../lib/mappings.server";
-import { serializeId } from "../../lib/serialization.server";
-import { AccountCategoryWithAccountsDto } from "./types";
+} from "../../../lib/mappings.server";
+import { AccountCategoryWithAccountsDto } from "./dtos";
 
 export async function getAccountCategoriesWithAccounts(
   db: Db
@@ -39,15 +36,4 @@ export async function getAccountCategoriesWithAccounts(
       ...ac,
       accounts: accountsByCategoryId[ac._id],
     }));
-}
-
-export async function getAccountDetail(
-  db: Db,
-  accountId: string
-): Promise<AccountDetailDto | null> {
-  const account = await db
-    .collection<Account>("accounts")
-    .findOne({ _id: serializeId(accountId) });
-
-  return account ? toAccountDetailDto(account) : null;
 }

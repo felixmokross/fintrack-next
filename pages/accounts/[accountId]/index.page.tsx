@@ -1,15 +1,16 @@
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { NextPage } from "next";
-import { AccountDetailDto } from "../../lib/dtos";
-import { getDb } from "../../lib/mongodb.server";
+import { AccountDetailDto } from "../../../lib/dtos";
+import { getDb } from "../../../lib/mongodb.server";
 import { AccountDetail } from "./account-detail";
-import { AccountList } from "./account-list";
-import {
-  getAccountCategoriesWithAccounts,
-  getAccountDetail,
-} from "./data-loading.server";
-import { AccountDetailLayout, PageLayout } from "./layouts";
-import { AccountCategoryWithAccountsDto } from "./types";
+import { AccountList } from "../shared/account-list";
+import { getAccountCategoriesWithAccounts } from "../shared/data-loading.server";
+import { AccountDetailLayout, PageLayout } from "../shared/layouts";
+import { AccountCategoryWithAccountsDto } from "../shared/dtos";
+import { Db } from "mongodb";
+import { Account } from "../../../lib/documents.server";
+import { serializeId } from "../../../lib/serialization.server";
+import { toAccountDetailDto } from "../../../lib/mappings.server";
 
 const AccountsDetailPage: NextPage<
   AccountsDetailPageProps,
@@ -60,3 +61,14 @@ export const getServerSideProps = withPageAuthRequired<
     };
   },
 });
+
+async function getAccountDetail(
+  db: Db,
+  accountId: string
+): Promise<AccountDetailDto | null> {
+  const account = await db
+    .collection<Account>("accounts")
+    .findOne({ _id: serializeId(accountId) });
+
+  return account ? toAccountDetailDto(account) : null;
+}

@@ -1,7 +1,4 @@
-import dayjs from "dayjs";
 import Decimal, { Numeric } from "decimal.js-light";
-import { ValueChangeFormValues } from "../pages/accounts/types";
-import { SaveTransactionBookingDto, SaveTransactionDto } from "./dtos";
 import { BookingType } from "./enums";
 
 export const dateFormat = "DD MMM YYYY";
@@ -138,33 +135,3 @@ export function transformRecord<T, U>(
 }
 
 export const baseCurrency = "USD";
-
-export function transformValueChangeFormValuesToSaveTransactionDto(
-  values: ValueChangeFormValues,
-  accountId: string
-): SaveTransactionDto {
-  return {
-    date: dayjs.utc(values.date, dateFormat).format("YYYY-MM-DD"),
-    note: values.note || undefined,
-    bookings: getBookings(),
-  };
-
-  function getBookings(): [
-    SaveTransactionBookingDto,
-    SaveTransactionBookingDto
-  ] {
-    const valueChangeDecimal = new Decimal(values.valueChange);
-    if (valueChangeDecimal.isPositive()) {
-      return [
-        { type: BookingType.APPRECIATION, amount: values.valueChange },
-        { type: BookingType.DEPOSIT, accountId, amount: values.valueChange },
-      ];
-    }
-
-    const amount = valueChangeDecimal.negated().toString();
-    return [
-      { type: BookingType.DEPRECIATION, amount },
-      { type: BookingType.CHARGE, accountId, amount },
-    ];
-  }
-}
