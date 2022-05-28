@@ -2,6 +2,8 @@ import Decimal from "decimal.js-light";
 import { useState } from "react";
 import { AccountUnitDto } from "../accounts/shared/dtos";
 import { AccountUnitKind } from "../accounts/shared/enums";
+import { useRefData } from "../ref-data-context";
+import TextSkeleton, { TextSkeletonLength } from "./text-skeleton";
 import { locale } from "./util";
 
 export default function ValueDisplay(props: ValueDisplayProps) {
@@ -20,6 +22,10 @@ function Label({
   showSignAlways = false,
   isExpanded,
 }: ValueDisplayProps & { isExpanded: boolean }) {
+  const { currencies } = useRefData();
+  if (!currencies)
+    return <TextSkeleton length={TextSkeletonLength.EXTRA_SHORT} />;
+
   if (unit.kind !== AccountUnitKind.CURRENCY)
     return <>{renderValue(value, showInverted, showSignAlways, isExpanded)}</>;
 
@@ -30,8 +36,7 @@ function Label({
         showInverted,
         showSignAlways,
         isExpanded,
-        2 // TODO get decimals from currencies
-        // item.decimals !== undefined ? item.decimals : 2
+        currencies[unit.currency].decimals || 2
       )}
     </>
   );
