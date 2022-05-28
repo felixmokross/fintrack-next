@@ -1,10 +1,12 @@
 import { withApiAuthRequired } from "@auth0/nextjs-auth0";
 import dayjs from "dayjs";
 import { recalculate } from "../../../lib/calculation/recalculate.server";
-import { Transaction } from "../../shared/transactions/documents.server";
+import {
+  toBooking,
+  Transaction,
+} from "../../shared/transactions/documents.server";
 import { Account } from "../../shared/accounts/documents.server";
 import { SaveTransactionDto } from "../../shared/transactions/dtos";
-import { toBooking } from "../../../lib/mappings.server";
 import { getDb } from "../../shared/mongodb.server";
 import { serializeId } from "../../shared/serialization.server";
 import { isChargeOrDeposit } from "../../shared/transactions/functions";

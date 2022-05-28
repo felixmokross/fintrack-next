@@ -1,11 +1,13 @@
 import { groupBy } from "lodash";
 import { Db } from "mongodb";
-import { AccountCategory } from "../../shared/account-categories/documents.server";
+import {
+  AccountCategory,
+  toAccountCategoryDto,
+} from "../../shared/account-categories/documents.server";
 import {
   Account,
   toAccountUnitDto,
 } from "../../shared/accounts/documents.server";
-import { toAccountCategoryDto } from "../../../lib/mappings.server";
 import { AccountCategoryWithAccountsDto } from "./dtos";
 import { ensure } from "../../shared/util";
 import { AccountDto } from "../../shared/accounts/dtos";

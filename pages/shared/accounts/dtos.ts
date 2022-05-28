@@ -45,14 +45,6 @@ export interface StockAccountUnitDto {
   stockId: string;
 }
 
-export interface AccountCategoryDto {
-  _id: string;
-  name: string;
-  type: AccountCategoryType;
-  order: number;
-  currentBalance: string;
-}
-
 export interface RenameAccountDto {
   name: string;
 }
