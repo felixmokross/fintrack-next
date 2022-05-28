@@ -5,7 +5,9 @@ import {
 } from "../../shared/currencies/documents.server";
 import { getDb } from "../../shared/mongodb.server";
 import { RefDataDto } from "../../shared/ref-data/dtos";
-import { byKey } from "../../shared/util";
+import { Stock } from "../../shared/stocks/documents.server";
+import { StockDto } from "../../shared/stocks/dtos";
+import { byKey, ensure } from "../../shared/util";
 
 export default withApiAuthRequired(async function getRefData(req, res) {
   if (req.method !== "GET") {
@@ -15,9 +17,12 @@ export default withApiAuthRequired(async function getRefData(req, res) {
 
   const db = await getDb();
 
-  const [currencies] = await Promise.all([getCurrencies()]);
+  const [currencies, stocks] = await Promise.all([
+    getCurrencies(),
+    getStocks(),
+  ]);
 
-  return res.json({ currencies } as RefDataDto);
+  return res.json({ currencies, stocks } as RefDataDto);
 
   async function getCurrencies() {
     return byKey(
@@ -31,4 +36,19 @@ export default withApiAuthRequired(async function getRefData(req, res) {
       (c) => c._id
     );
   }
+
+  async function getStocks() {
+    return byKey(
+      (await db.collection<Stock>("stocks").find().toArray()).map(toStockDto),
+      (c) => c._id
+    );
+  }
 });
+
+function toStockDto(stock: Stock): StockDto {
+  return {
+    _id: ensure(stock._id).toHexString(),
+    symbol: stock.symbol,
+    tradingCurrency: stock.tradingCurrency,
+  };
+}

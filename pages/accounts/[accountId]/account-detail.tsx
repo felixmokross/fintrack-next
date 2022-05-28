@@ -8,8 +8,10 @@ import { NewValueChangeModal } from "../../shared/transactions/new-value-change-
 import { CloseIcon } from "../../shared/icons";
 import { Button, ButtonVariant } from "../../shared/button";
 import { AccountType, AccountUnitKind } from "../shared/enums";
-import { AccountUnitDto } from "../shared/dtos";
+import { AccountUnitDto, StockAccountUnitDto } from "../shared/dtos";
 import { AccountDetailDto } from "./dtos";
+import { useRefData } from "../../ref-data-context";
+import TextSkeleton, { TextSkeletonLength } from "../../shared/text-skeleton";
 
 export function AccountDetail({ account }: AccountDetailProps) {
   const [newValueChangeModalOpen, setNewValueChangeModalOpen] = useState(false);
@@ -68,18 +70,13 @@ function AccountUnitLabel({ unit }: { unit: AccountUnitDto }) {
     case AccountUnitKind.CURRENCY:
       return <h2 title="Currency">{unit.currency}</h2>;
     case AccountUnitKind.STOCK:
-      return <>STOCK</>; // TODO
-    //   return (
-    //     <CollectionItemQuery
-    //       itemKey={unit.stockId}
-    //       options={stocksByIdQuery()}
-    //       loadingIndicator={
-    //         <h2>
-    //           <TextSkeleton length={TextSkeletonLength.EXTRA_SHORT} />
-    //         </h2>
-    //       }
-    //       render={(stock) => <h2 title="Stock Symbol">{stock.symbol}</h2>}
-    //     />
-    //   );
+      return <StockAccountUnitLabel unit={unit} />;
   }
+}
+
+function StockAccountUnitLabel({ unit }: { unit: StockAccountUnitDto }) {
+  const { stocks } = useRefData();
+  if (!stocks) return <TextSkeleton length={TextSkeletonLength.EXTRA_SHORT} />;
+
+  return <h2 title="Stock Symbol">{stocks[unit.stockId].symbol}</h2>;
 }
