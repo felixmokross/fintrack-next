@@ -1,8 +1,8 @@
 import Decimal from "decimal.js-light";
 import { useState } from "react";
+import { AccountUnitDto } from "../accounts/shared/dtos";
+import { AccountUnitKind } from "../accounts/shared/enums";
 import { locale } from "./util";
-import { AccountUnitDto } from "./accounts/dtos";
-import { AccountUnitKind } from "./accounts/enums";
 
 export default function ValueDisplay(props: ValueDisplayProps) {
   const [isExpanded, setIsExpanded] = useState(false);

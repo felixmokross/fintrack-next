@@ -1,4 +1,4 @@
-import { AccountDetailDto } from "../accounts/dtos";
+import { AccountDetailDto } from "../../accounts/[accountId]/dtos";
 import { Modal, ModalSize } from "../modal";
 
 const title = "New Transaction";

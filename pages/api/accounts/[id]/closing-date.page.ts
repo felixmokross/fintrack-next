@@ -1,7 +1,7 @@
 import { withApiAuthRequired } from "@auth0/nextjs-auth0";
 import dayjs from "dayjs";
-import { Account } from "../../../shared/accounts/documents.server";
-import { AccountClosingDateDto } from "../../../shared/accounts/dtos";
+import { Account } from "../../../accounts/shared/documents.server";
+import { AccountClosingDateDto } from "../../../accounts/shared/dtos";
 import { getDb } from "../../../shared/mongodb.server";
 import { serializeId } from "../../../shared/serialization.server";
 

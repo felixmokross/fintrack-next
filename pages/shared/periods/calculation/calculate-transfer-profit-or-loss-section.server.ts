@@ -1,7 +1,6 @@
 import Decimal from "decimal.js-light";
 import { uniq } from "lodash";
 import { BookingType } from "../../transactions/enums";
-import { AccountUnitKind } from "../../accounts/enums";
 import { TransferProfitOrLossSectionModel } from "../model.server";
 import {
   ChargeModel,
@@ -10,7 +9,6 @@ import {
   IncomeModel,
   TransactionModel,
 } from "../../transactions/model.server";
-import { AccountUnitModel } from "../../accounts/model.server";
 import { referenceCurrency, sum } from "../../util";
 import {
   isChargeOrDeposit,
@@ -22,6 +20,8 @@ import {
   convertToCurrency,
   RateProvider,
 } from "../../forex-rates/functions.server";
+import { AccountUnitModel } from "../../../accounts/shared/model.server";
+import { AccountUnitKind } from "../../../accounts/shared/enums";
 
 export function calculateTransferProfitOrLossSection(
   transactions: readonly TransactionModel[],

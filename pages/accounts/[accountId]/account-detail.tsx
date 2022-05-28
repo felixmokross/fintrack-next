@@ -1,7 +1,5 @@
 import dayjs from "dayjs";
 import { useState } from "react";
-import { AccountDetailDto, AccountUnitDto } from "../../shared/accounts/dtos";
-import { AccountType, AccountUnitKind } from "../../shared/accounts/enums";
 import { dateFormat } from "../../shared/util";
 import AccountActionsMenu from "./account-actions-menu";
 import EditableAccountName from "./editable-account-name";
@@ -9,6 +7,9 @@ import { NewTransactionDropdown } from "./new-transaction-dropdown";
 import { NewValueChangeModal } from "../../shared/transactions/new-value-change-modal";
 import { CloseIcon } from "../../shared/icons";
 import { Button, ButtonVariant } from "../../shared/button";
+import { AccountType, AccountUnitKind } from "../shared/enums";
+import { AccountUnitDto } from "../shared/dtos";
+import { AccountDetailDto } from "./dtos";
 
 export function AccountDetail({ account }: AccountDetailProps) {
   const [newValueChangeModalOpen, setNewValueChangeModalOpen] = useState(false);

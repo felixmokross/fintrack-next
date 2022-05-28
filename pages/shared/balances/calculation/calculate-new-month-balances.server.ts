@@ -1,6 +1,6 @@
 import Decimal from "decimal.js-light";
 import { groupBy, orderBy, sortBy } from "lodash";
-import { AccountModel } from "../../accounts/model.server";
+import { AccountModel } from "../../../accounts/shared/model.server";
 import { sum } from "../../util";
 import { DayBalancesModel, MonthBalancesModel } from "../model.server";
 

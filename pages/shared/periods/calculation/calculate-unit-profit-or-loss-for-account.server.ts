@@ -6,12 +6,12 @@ import {
   DepositModel,
   TransactionModel,
 } from "../../transactions/model.server";
-import { AccountModel } from "../../accounts/model.server";
 import { ensure, sum } from "../../util";
 import { isChargeOrDeposit } from "../../transactions/functions";
 import { convertToReferenceCurrencyForUnit } from "../../convert-to-reference-currency-for-unit.server";
 import { RateProvider } from "../../forex-rates/functions.server";
 import { StockPriceProvider } from "../../stock-prices/functions.server";
+import { AccountModel } from "../../../accounts/shared/model.server";
 
 export function calculateUnitProfitOrLossForAccount(
   account: AccountModel,

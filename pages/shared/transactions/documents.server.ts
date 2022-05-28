@@ -11,7 +11,7 @@ import {
   AccountUnit,
   deserializeAccountUnit,
   serializeAccountUnit,
-} from "../accounts/documents.server";
+} from "../../accounts/shared/documents.server";
 import { ensure } from "../util";
 import { BookingType } from "./enums";
 import {

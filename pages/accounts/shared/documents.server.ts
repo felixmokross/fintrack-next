@@ -4,9 +4,9 @@ import {
   deserializeDecimal,
   deserializeId,
   serializeId,
-} from "../serialization.server";
-import { AccountCategoryType } from "../account-categories/enums";
-import { ensure } from "../util";
+} from "../../shared/serialization.server";
+import { AccountCategoryType } from "../../shared/account-categories/enums";
+import { ensure } from "../../shared/util";
 import { AccountUnitDto } from "./dtos";
 import { AccountType, AccountUnitKind } from "./enums";
 import {

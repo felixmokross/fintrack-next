@@ -1,7 +1,7 @@
 import { Dayjs } from "dayjs";
 import Decimal from "decimal.js-light";
 import { groupBy } from "lodash";
-import { AccountModel } from "../../accounts/model.server";
+import { AccountModel } from "../../../accounts/shared/model.server";
 import { convertToReferenceCurrencyForUnit } from "../../convert-to-reference-currency-for-unit.server";
 import { DayLedgerModel } from "../../day-ledgers/model.server";
 import { RateProvider } from "../../forex-rates/functions.server";

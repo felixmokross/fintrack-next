@@ -1,7 +1,7 @@
 import { Dayjs } from "dayjs";
 import Decimal from "decimal.js-light";
+import { AccountUnitModel } from "../../accounts/shared/model.server";
 import { BookingType } from "./enums";
-import { AccountUnitModel } from "../accounts/model.server";
 
 export interface TransactionModel {
   _id: string;

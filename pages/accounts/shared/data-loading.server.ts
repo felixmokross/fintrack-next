@@ -4,13 +4,9 @@ import {
   AccountCategory,
   toAccountCategoryDto,
 } from "../../shared/account-categories/documents.server";
-import {
-  Account,
-  toAccountUnitDto,
-} from "../../shared/accounts/documents.server";
-import { AccountCategoryWithAccountsDto } from "./dtos";
+import { Account, toAccountUnitDto } from "./documents.server";
+import { AccountCategoryWithAccountsDto, AccountDto } from "./dtos";
 import { ensure } from "../../shared/util";
-import { AccountDto } from "../../shared/accounts/dtos";
 
 export async function getAccountCategoriesWithAccounts(
   db: Db

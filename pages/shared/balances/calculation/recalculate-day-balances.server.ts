@@ -1,6 +1,6 @@
 import { Dayjs } from "dayjs";
 import { Db } from "mongodb";
-import { AccountModel } from "../../accounts/model.server";
+import { AccountModel } from "../../../accounts/shared/model.server";
 import {
   DayLedger,
   deserializeDayLedger,

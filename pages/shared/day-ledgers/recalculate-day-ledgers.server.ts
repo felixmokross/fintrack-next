@@ -8,7 +8,6 @@ import {
   DepositModel,
   TransactionModel,
 } from "../transactions/model.server";
-import { AccountModel } from "../accounts/model.server";
 import { serializeDate, serializeId } from "../serialization.server";
 import { getTransactionsByAccountId } from "../transactions-by-account.server";
 import Decimal from "decimal.js-light";
@@ -16,6 +15,7 @@ import { groupBy, last, sortBy } from "lodash";
 import { isChargeOrDeposit } from "../transactions/functions";
 import { BookingType } from "../transactions/enums";
 import { sum } from "../util";
+import { AccountModel } from "../../accounts/shared/model.server";
 
 export default async function recalculateDayLedgers(
   db: Db,

@@ -1,21 +1,21 @@
 import Decimal from "decimal.js-light";
 import { groupBy } from "lodash";
-import { AccountType, AccountUnitKind } from "../../accounts/enums";
 import { ValueProfitOrLossSectionModel } from "../model.server";
 import { DayBalancesModel } from "../../balances/model.server";
 import { TransactionModel } from "../../transactions/model.server";
+import { referenceCurrency, sum, transformRecord } from "../../util";
+import { calculateUnitProfitOrLossForAccount } from "./calculate-unit-profit-or-loss-for-account.server";
+import calculateValueChangeProfitOrLossForAccount from "./calculate-value-change-profit-or-loss-for-account.server";
+import { RateProvider } from "../../forex-rates/functions.server";
+import { StockPriceProvider } from "../../stock-prices/functions.server";
 import {
   AccountModel,
   CurrencyAccountModel,
   StockAccountModel,
   TrackedAccountModel,
   ValuatedAccountModel,
-} from "../../accounts/model.server";
-import { referenceCurrency, sum, transformRecord } from "../../util";
-import { calculateUnitProfitOrLossForAccount } from "./calculate-unit-profit-or-loss-for-account.server";
-import calculateValueChangeProfitOrLossForAccount from "./calculate-value-change-profit-or-loss-for-account.server";
-import { RateProvider } from "../../forex-rates/functions.server";
-import { StockPriceProvider } from "../../stock-prices/functions.server";
+} from "../../../accounts/shared/model.server";
+import { AccountType, AccountUnitKind } from "../../../accounts/shared/enums";
 
 export function calculateValueProfitOrLossSection(
   transactionsByAccountId: Record<string, readonly TransactionModel[]>,

@@ -1,9 +1,9 @@
 import { Dayjs } from "dayjs";
 import Decimal from "decimal.js-light";
 import { ObjectId } from "mongodb";
-import { AccountUnit } from "./accounts/documents.server";
-import { AccountUnitKind } from "./accounts/enums";
-import { AccountUnitModel } from "./accounts/model.server";
+import { AccountUnit } from "../accounts/shared/documents.server";
+import { AccountUnitKind } from "../accounts/shared/enums";
+import { AccountUnitModel } from "../accounts/shared/model.server";
 import {
   convertToCurrency,
   RateProvider,

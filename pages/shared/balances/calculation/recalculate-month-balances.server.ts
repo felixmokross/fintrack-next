@@ -1,6 +1,6 @@
 import { Dayjs } from "dayjs";
 import { Db } from "mongodb";
-import { AccountModel } from "../../accounts/model.server";
+import { AccountModel } from "../../../accounts/shared/model.server";
 import { globalOpeningDate } from "../../global-opening-date.server";
 import { serializeDate } from "../../serialization.server";
 import { MonthBalances, serializeMonthBalances } from "../documents.server";

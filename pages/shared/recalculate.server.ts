@@ -7,7 +7,7 @@ import {
   deserializeTransaction,
   Transaction,
 } from "./transactions/documents.server";
-import { Account } from "./accounts/documents.server";
+import { Account } from "../accounts/shared/documents.server";
 import { TransactionModel } from "./transactions/model.server";
 import {
   deserializeId,

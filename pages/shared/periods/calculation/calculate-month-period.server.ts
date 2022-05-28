@@ -7,7 +7,6 @@ import {
   MonthBalancesModel,
 } from "../../balances/model.server";
 import { TransactionModel } from "../../transactions/model.server";
-import { AccountModel } from "../../accounts/model.server";
 import { sum } from "../../util";
 import { calculateCashFlowForMonth } from "./calculate-cash-flow-for-month.server";
 import { calculateIncomeExpensesSection } from "./calculate-income-expenses-section.server";
@@ -20,6 +19,7 @@ import { calculateValueProfitOrLossSection } from "./calculate-value-profit-or-l
 import { getTransactionsByAccountId } from "../../transactions-by-account.server";
 import { RateProvider } from "../../forex-rates/functions.server";
 import { StockPriceProvider } from "../../stock-prices/functions.server";
+import { AccountModel } from "../../../accounts/shared/model.server";
 
 export function calculateMonthPeriod(
   month: Dayjs,

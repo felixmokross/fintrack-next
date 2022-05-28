@@ -5,7 +5,7 @@ import {
   toBooking,
   Transaction,
 } from "../../shared/transactions/documents.server";
-import { Account } from "../../shared/accounts/documents.server";
+import { Account } from "../../accounts/shared/documents.server";
 import { SaveTransactionDto } from "../../shared/transactions/dtos";
 import { getDb } from "../../shared/mongodb.server";
 import { serializeId } from "../../shared/serialization.server";

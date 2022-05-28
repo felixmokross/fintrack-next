@@ -1,10 +1,12 @@
 import dayjs, { Dayjs } from "dayjs";
 import { Db } from "mongodb";
 import { DayBalances, deserializeDayBalances } from "../documents.server";
-import { Account, deserializeAccount } from "../../accounts/documents.server";
+import {
+  Account,
+  deserializeAccount,
+} from "../../../accounts/shared/documents.server";
 import { DayBalancesModel } from "../model.server";
 import { TransactionModel } from "../../transactions/model.server";
-import { AccountModel } from "../../accounts/model.server";
 import { serializeDate } from "../../serialization.server";
 import { today } from "../../today";
 import { byKey } from "../../util";
@@ -15,6 +17,7 @@ import { recalculateMonthBalances } from "./recalculate-month-balances.server";
 import { StockPriceProvider } from "../../stock-prices/functions.server";
 import { Stopwatch } from "../../stopwatch.server";
 import { globalOpeningDate } from "../../global-opening-date.server";
+import { AccountModel } from "../../../accounts/shared/model.server";
 
 export async function recalculateBalances(
   db: Db,

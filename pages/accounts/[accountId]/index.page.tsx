@@ -1,6 +1,5 @@
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { NextPage } from "next";
-import { AccountDetailDto } from "../../shared/accounts/dtos";
 import { getDb } from "../../shared/mongodb.server";
 import { AccountDetail } from "./account-detail";
 import { AccountList } from "../shared/account-list";
@@ -8,12 +7,10 @@ import { getAccountCategoriesWithAccounts } from "../shared/data-loading.server"
 import { AccountDetailLayout, PageLayout } from "../shared/layouts";
 import { AccountCategoryWithAccountsDto } from "../shared/dtos";
 import { Db } from "mongodb";
-import {
-  Account,
-  toAccountUnitDto,
-} from "../../shared/accounts/documents.server";
+import { Account, toAccountUnitDto } from "../shared/documents.server";
 import { serializeId } from "../../shared/serialization.server";
 import { ensure } from "../../shared/util";
+import { AccountDetailDto } from "./dtos";
 
 const AccountsDetailPage: NextPage<
   AccountsDetailPageProps,

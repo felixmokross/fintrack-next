@@ -9,14 +9,16 @@ import {
   MonthBalances,
 } from "../../balances/documents.server";
 import { AccountCategory } from "../../account-categories/documents.server";
-import { Account, deserializeAccount } from "../../accounts/documents.server";
+import {
+  Account,
+  deserializeAccount,
+} from "../../../accounts/shared/documents.server";
 import { PeriodModel } from "../model.server";
 import {
   DayBalancesModel,
   MonthBalancesModel,
 } from "../../balances/model.server";
 import { TransactionModel } from "../../transactions/model.server";
-import { AccountModel } from "../../accounts/model.server";
 import { serializeDate } from "../../serialization.server";
 import { byKey } from "../../util";
 import { calculateMonthPeriod } from "./calculate-month-period.server";
@@ -24,6 +26,7 @@ import { globalOpeningDate } from "../../global-opening-date.server";
 import { StockPriceProvider } from "../../stock-prices/functions.server";
 import { RateProvider } from "../../forex-rates/functions.server";
 import { Stopwatch } from "../../stopwatch.server";
+import { AccountModel } from "../../../accounts/shared/model.server";
 
 export async function recalculateMonthPeriods(
   db: Db,
