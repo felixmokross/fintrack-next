@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import { Account } from "../../../shared/accounts/documents.server";
 import { AccountClosingDateDto } from "../../../shared/accounts/dtos";
 import { getDb } from "../../../shared/mongodb.server";
-import { serializeId } from "../../../../lib/serialization.server";
+import { serializeId } from "../../../shared/serialization.server";
 
 export default withApiAuthRequired(async function updateClosingDate(req, res) {
   if (req.method !== "PUT") {

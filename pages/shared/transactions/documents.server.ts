@@ -1,6 +1,28 @@
 import { Decimal128, ObjectId } from "mongodb";
-import { AccountUnit } from "../accounts/documents.server";
+import {
+  deserializeDate,
+  deserializeDecimal,
+  deserializeId,
+  serializeDecimal,
+  serializeId,
+} from "../serialization.server";
+import {
+  AccountUnit,
+  deserializeAccountUnit,
+  serializeAccountUnit,
+} from "../accounts/documents.server";
+import { ensure } from "../util";
 import { BookingType } from "./enums";
+import {
+  AppreciationModel,
+  BookingModel,
+  ChargeModel,
+  DepositModel,
+  DepreciationModel,
+  ExpenseModel,
+  IncomeModel,
+  TransactionModel,
+} from "./model.server";
 
 export interface Transaction {
   _id?: ObjectId;
@@ -60,4 +82,132 @@ export interface Appreciation extends CommonBooking {
 export interface Depreciation extends CommonBooking {
   type: BookingType.DEPRECIATION;
   amount: Decimal128;
+}
+
+export function serializeBooking(booking: BookingModel): Booking {
+  switch (booking.type) {
+    case BookingType.CHARGE:
+    case BookingType.DEPOSIT:
+      return serializeChargeOrDeposit(booking);
+    case BookingType.APPRECIATION:
+    case BookingType.DEPRECIATION:
+      return serializeAppreciationOrDepreciation(booking);
+    case BookingType.EXPENSE:
+      return serializeExpense(booking);
+    case BookingType.INCOME:
+      return serializeIncome(booking);
+  }
+}
+
+function serializeChargeOrDeposit(
+  chargeOrDeposit: ChargeModel | DepositModel
+): SerializedChargeOrDeposit<typeof chargeOrDeposit> {
+  return {
+    ...chargeOrDeposit,
+    accountId: serializeId(chargeOrDeposit.accountId),
+    amount: serializeDecimal(chargeOrDeposit.amount),
+    unit: serializeAccountUnit(chargeOrDeposit.unit),
+  };
+}
+
+type SerializedChargeOrDeposit<T extends ChargeModel | DepositModel> =
+  T extends ChargeModel ? Charge : Deposit;
+
+function serializeAppreciationOrDepreciation(
+  appreciationOrDepreciation: AppreciationModel | DepreciationModel
+): SerializedAppreciationOrDepreciation<typeof appreciationOrDepreciation> {
+  return {
+    ...appreciationOrDepreciation,
+    amount: serializeDecimal(appreciationOrDepreciation.amount),
+  };
+}
+
+type SerializedAppreciationOrDepreciation<
+  T extends AppreciationModel | DepreciationModel
+> = T extends AppreciationModel ? Appreciation : Depreciation;
+
+function serializeExpense(expense: ExpenseModel): Expense {
+  return {
+    ...expense,
+    amount: serializeDecimal(expense.amount),
+    expenseCategoryId: serializeId(expense.expenseCategoryId),
+  };
+}
+
+function serializeIncome(income: IncomeModel): Income {
+  return {
+    ...income,
+    amount: serializeDecimal(income.amount),
+    incomeCategoryId: serializeId(income.incomeCategoryId),
+  };
+}
+
+export function deserializeBooking(booking: Booking): BookingModel {
+  switch (booking.type) {
+    case BookingType.CHARGE:
+    case BookingType.DEPOSIT:
+      return deserializeChargeOrDeposit(booking);
+    case BookingType.APPRECIATION:
+    case BookingType.DEPRECIATION:
+      return deserializeAppreciationOrDepreciation(booking);
+    case BookingType.INCOME:
+      return deserializeIncome(booking);
+    case BookingType.EXPENSE:
+      return deserializeExpense(booking);
+  }
+}
+
+function deserializeExpense(expense: Expense): ExpenseModel {
+  return {
+    ...expense,
+    expenseCategoryId: deserializeId(expense.expenseCategoryId),
+    amount: deserializeDecimal(expense.amount),
+  };
+}
+
+function deserializeIncome(income: Income): IncomeModel {
+  return {
+    ...income,
+    incomeCategoryId: deserializeId(income.incomeCategoryId),
+    amount: deserializeDecimal(income.amount),
+  };
+}
+
+function deserializeAppreciationOrDepreciation(
+  appreciationOrDepreciation: Appreciation | Depreciation
+): DeserializedAppreciationOrDepreciation<typeof appreciationOrDepreciation> {
+  return {
+    ...appreciationOrDepreciation,
+    amount: deserializeDecimal(appreciationOrDepreciation.amount),
+  };
+}
+
+type DeserializedAppreciationOrDepreciation<
+  T extends Appreciation | Depreciation
+> = T extends Appreciation ? AppreciationModel : DepreciationModel;
+
+function deserializeChargeOrDeposit(
+  chargeOrDeposit: Charge | Deposit
+): DeserializedChargeOrDeposit<typeof chargeOrDeposit> {
+  return {
+    ...chargeOrDeposit,
+    accountId: deserializeId(chargeOrDeposit.accountId),
+    amount: deserializeDecimal(chargeOrDeposit.amount),
+    unit: deserializeAccountUnit(chargeOrDeposit.unit),
+  };
+}
+
+type DeserializedChargeOrDeposit<T extends Charge | Deposit> = T extends Charge
+  ? ChargeModel
+  : DepositModel;
+
+export function deserializeTransaction(
+  transaction: Transaction
+): TransactionModel {
+  return {
+    ...transaction,
+    _id: deserializeId(ensure(transaction._id)),
+    date: deserializeDate(transaction.date),
+    bookings: transaction.bookings.map(deserializeBooking),
+  };
 }

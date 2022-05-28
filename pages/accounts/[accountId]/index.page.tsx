@@ -12,7 +12,7 @@ import {
   Account,
   toAccountUnitDto,
 } from "../../shared/accounts/documents.server";
-import { serializeId } from "../../../lib/serialization.server";
+import { serializeId } from "../../shared/serialization.server";
 import { ensure } from "../../shared/util";
 
 const AccountsDetailPage: NextPage<

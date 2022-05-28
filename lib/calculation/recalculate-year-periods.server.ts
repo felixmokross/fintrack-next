@@ -3,16 +3,14 @@ import { groupBy } from "lodash";
 import { Db } from "mongodb";
 import { globalOpeningDate } from "../../pages/shared/global-opening-date.server";
 import {
+  deserializeMonthPeriod,
   MonthPeriod,
   Period,
+  serializePeriod,
 } from "../../pages/shared/periods/documents.server";
 import { PeriodType } from "../../pages/shared/periods/enums";
 import { PeriodModel } from "../../pages/shared/periods/model.server";
-import {
-  deserializeMonthPeriod,
-  serializeDate,
-  serializePeriod,
-} from "../serialization.server";
+import { serializeDate } from "../../pages/shared/serialization.server";
 import { Stopwatch } from "./stopwatch.server";
 import sumPeriods from "./sum-periods.server";
 

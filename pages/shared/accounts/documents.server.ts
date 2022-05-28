@@ -1,7 +1,19 @@
 import { Decimal128, ObjectId } from "mongodb";
+import {
+  deserializeDate,
+  deserializeDecimal,
+  deserializeId,
+  serializeId,
+} from "../serialization.server";
 import { AccountCategoryType } from "../account-categories/enums";
+import { ensure } from "../util";
 import { AccountUnitDto } from "./dtos";
 import { AccountType, AccountUnitKind } from "./enums";
+import {
+  AccountModel,
+  AccountUnitModel,
+  StockAccountUnitModel,
+} from "./model.server";
 
 export interface Account {
   _id?: ObjectId;
@@ -48,4 +60,67 @@ export function toAccountUnitDto(unit: AccountUnit): AccountUnitDto {
         stockId: unit.stockId.toHexString(),
       };
   }
+}
+
+export function serializeAccountUnit(unit: AccountUnitModel): AccountUnit {
+  switch (unit.kind) {
+    case AccountUnitKind.CURRENCY:
+      return unit;
+    case AccountUnitKind.STOCK:
+      return serializeStockAccountUnit(unit);
+  }
+}
+
+function serializeStockAccountUnit(
+  unit: StockAccountUnitModel
+): StockAccountUnit {
+  return {
+    ...unit,
+    stockId: serializeId(unit.stockId),
+  };
+}
+
+export function deserializeAccountUnit(unit: AccountUnit): AccountUnitModel {
+  switch (unit.kind) {
+    case AccountUnitKind.CURRENCY:
+      return unit;
+    case AccountUnitKind.STOCK:
+      return deserializeStockAccountUnit(unit);
+  }
+}
+
+function deserializeStockAccountUnit(
+  unit: StockAccountUnit
+): StockAccountUnitModel {
+  return {
+    ...unit,
+    stockId: deserializeId(unit.stockId),
+  };
+}
+
+export function deserializeAccount(a: Account): AccountModel {
+  return {
+    ...a,
+    _id: deserializeId(ensure(a._id)),
+    categoryId: deserializeId(a.categoryId),
+    closingDate: a.closingDate ? deserializeDate(a.closingDate) : undefined,
+    currentBalance: {
+      valueInReferenceCurrency: deserializeDecimal(
+        a.currentBalance.valueInReferenceCurrency
+      ),
+      valueInAccountUnit: deserializeDecimal(
+        a.currentBalance.valueInAccountUnit
+      ),
+    },
+    valueTypeId: a.valueTypeId ? deserializeId(a.valueTypeId) : undefined,
+    valueSubtypeId: a.valueSubtypeId
+      ? deserializeId(a.valueSubtypeId)
+      : undefined,
+    groupId: a.groupId ? deserializeId(a.groupId) : undefined,
+    openingBalance: a.openingBalance
+      ? deserializeDecimal(a.openingBalance)
+      : undefined,
+    openingDate: a.openingDate ? deserializeDate(a.openingDate) : undefined,
+    unit: deserializeAccountUnit(a.unit),
+  };
 }

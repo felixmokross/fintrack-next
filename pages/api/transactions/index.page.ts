@@ -6,7 +6,7 @@ import { Account } from "../../shared/accounts/documents.server";
 import { SaveTransactionDto } from "../../shared/transactions/dtos";
 import { toBooking } from "../../../lib/mappings.server";
 import { getDb } from "../../shared/mongodb.server";
-import { serializeId } from "../../../lib/serialization.server";
+import { serializeId } from "../../shared/serialization.server";
 import { isChargeOrDeposit } from "../../shared/transactions/functions";
 
 export default withApiAuthRequired(async function createTransaction(req, res) {

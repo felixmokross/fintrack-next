@@ -2,7 +2,7 @@ import { withApiAuthRequired } from "@auth0/nextjs-auth0";
 import { Account } from "../../../shared/accounts/documents.server";
 import { RenameAccountDto } from "../../../shared/accounts/dtos";
 import { getDb } from "../../../shared/mongodb.server";
-import { serializeId } from "../../../../lib/serialization.server";
+import { serializeId } from "../../../shared/serialization.server";
 
 export default withApiAuthRequired(async function updateAccountName(req, res) {
   if (req.method !== "PUT") {

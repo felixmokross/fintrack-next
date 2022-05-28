@@ -14,7 +14,10 @@ import {
 } from "../pages/shared/transactions/dtos";
 import { AccountCategoryDto } from "../pages/shared/accounts/dtos";
 import { BookingType } from "../pages/shared/transactions/enums";
-import { serializeDecimal, serializeId } from "./serialization.server";
+import {
+  serializeDecimal,
+  serializeId,
+} from "../pages/shared/serialization.server";
 import { ensure } from "../pages/shared/util";
 
 export function toAccountCategoryDto(
