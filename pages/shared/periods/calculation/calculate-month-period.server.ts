@@ -1,14 +1,14 @@
 import { Dayjs } from "dayjs";
-import { PeriodType } from "../../pages/shared/periods/enums";
-import { BookingType } from "../../pages/shared/transactions/enums";
-import { PeriodModel } from "../../pages/shared/periods/model.server";
+import { PeriodType } from "../enums";
+import { BookingType } from "../../transactions/enums";
+import { PeriodModel } from "../model.server";
 import {
   DayBalancesModel,
   MonthBalancesModel,
-} from "../../pages/shared/balances/model.server";
-import { TransactionModel } from "../../pages/shared/transactions/model.server";
-import { AccountModel } from "../../pages/shared/accounts/model.server";
-import { sum } from "../../pages/shared/util";
+} from "../../balances/model.server";
+import { TransactionModel } from "../../transactions/model.server";
+import { AccountModel } from "../../accounts/model.server";
+import { sum } from "../../util";
 import { calculateCashFlowForMonth } from "./calculate-cash-flow-for-month.server";
 import { calculateIncomeExpensesSection } from "./calculate-income-expenses-section.server";
 import {
@@ -17,9 +17,9 @@ import {
 } from "./calculate-profit-or-loss-entries.server";
 import { calculateTransferProfitOrLossSection } from "./calculate-transfer-profit-or-loss-section.server";
 import { calculateValueProfitOrLossSection } from "./calculate-value-profit-or-loss-section.server";
-import { RateProvider } from "./forex-rates.server";
-import { StockPriceProvider } from "./stock-prices.server";
-import { getTransactionsByAccountId } from "./transactions-by-account.server";
+import { getTransactionsByAccountId } from "../../transactions-by-account.server";
+import { RateProvider } from "../../forex-rates/functions.server";
+import { StockPriceProvider } from "../../stock-prices/functions.server";
 
 export function calculateMonthPeriod(
   month: Dayjs,

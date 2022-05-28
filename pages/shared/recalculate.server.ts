@@ -1,29 +1,29 @@
 import { Dayjs } from "dayjs";
 import { groupBy } from "lodash";
 import { Db, Decimal128, ObjectId } from "mongodb";
-import { DayBalances } from "../../pages/shared/balances/documents.server";
-import { AccountCategory } from "../../pages/shared/account-categories/documents.server";
+import { DayBalances } from "./balances/documents.server";
+import { AccountCategory } from "./account-categories/documents.server";
 import {
   deserializeTransaction,
   Transaction,
-} from "../../pages/shared/transactions/documents.server";
-import { Account } from "../../pages/shared/accounts/documents.server";
-import { TransactionModel } from "../../pages/shared/transactions/model.server";
+} from "./transactions/documents.server";
+import { Account } from "./accounts/documents.server";
+import { TransactionModel } from "./transactions/model.server";
 import {
   deserializeId,
   serializeDate,
   serializeDecimal,
   serializeId,
-} from "../../pages/shared/serialization.server";
-import { today } from "../../pages/shared/today";
-import { byKey, sum } from "../../pages/shared/util";
-import { getDbRateProviderAsync } from "./forex-rates.server";
-import { recalculateBalances } from "./recalculate-balances.server";
-import { recalculateMonthPeriods } from "./recalculate-month-periods.server";
-import recalculateQuarterPeriods from "./recalculate-quarter-periods.server";
-import recalculateYearPeriods from "./recalculate-year-periods.server";
-import { getDbStockPriceProviderAsync } from "./stock-prices.server";
+} from "./serialization.server";
+import { today } from "./today";
+import { byKey, sum } from "./util";
+import { recalculateBalances } from "./balances/calculation/recalculate-balances.server";
+import { recalculateMonthPeriods } from "./periods/calculation/recalculate-month-periods.server";
+import recalculateQuarterPeriods from "./periods/calculation/recalculate-quarter-periods.server";
+import recalculateYearPeriods from "./periods/calculation/recalculate-year-periods.server";
 import { Stopwatch } from "./stopwatch.server";
+import { getDbRateProviderAsync } from "./forex-rates/functions.server";
+import { getDbStockPriceProviderAsync } from "./stock-prices/functions.server";
 
 export async function recalculate(
   db: Db,

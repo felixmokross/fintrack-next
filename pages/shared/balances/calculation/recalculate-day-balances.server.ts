@@ -1,22 +1,19 @@
 import { Dayjs } from "dayjs";
 import { Db } from "mongodb";
-import {
-  DayBalances,
-  serializeDayBalances,
-} from "../../pages/shared/balances/documents.server";
+import { AccountModel } from "../../accounts/model.server";
 import {
   DayLedger,
   deserializeDayLedger,
-} from "../../pages/shared/day-ledgers/documents.server";
-import { DayBalancesModel } from "../../pages/shared/balances/model.server";
-import { DayLedgerModel } from "../../pages/shared/day-ledgers/model.server";
-import { AccountModel } from "../../pages/shared/accounts/model.server";
-import { serializeDate } from "../../pages/shared/serialization.server";
+} from "../../day-ledgers/documents.server";
+import { DayLedgerModel } from "../../day-ledgers/model.server";
+import { RateProvider } from "../../forex-rates/functions.server";
+import { globalOpeningDate } from "../../global-opening-date.server";
+import { serializeDate } from "../../serialization.server";
+import { StockPriceProvider } from "../../stock-prices/functions.server";
+import { Stopwatch } from "../../stopwatch.server";
+import { DayBalances, serializeDayBalances } from "../documents.server";
+import { DayBalancesModel } from "../model.server";
 import { calculateNewDayBalances } from "./calculate-new-day-balances.server";
-import { RateProvider } from "./forex-rates.server";
-import { StockPriceProvider } from "./stock-prices.server";
-import { Stopwatch } from "./stopwatch.server";
-import { globalOpeningDate } from "../../pages/shared/global-opening-date.server";
 
 export async function recalculateDayBalances(
   db: Db,

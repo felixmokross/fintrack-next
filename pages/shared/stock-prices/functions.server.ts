@@ -2,9 +2,12 @@ import { Dayjs } from "dayjs";
 import Decimal from "decimal.js-light";
 import { groupBy } from "lodash";
 import { Db } from "mongodb";
-import { StockPrice } from "../../pages/shared/stock-prices/documents.server";
-import { byKey, transformRecord } from "../../pages/shared/util";
-import { convertToCurrency, RateProvider } from "./forex-rates.server";
+import { StockPrice } from "./documents.server";
+import { byKey, transformRecord } from "../util";
+import {
+  convertToCurrency,
+  RateProvider,
+} from "../forex-rates/functions.server";
 
 export function convertStockQuantityToCurrency(
   quantity: Decimal,

@@ -1,12 +1,12 @@
 import { Dayjs } from "dayjs";
 import { flatten, groupBy } from "lodash";
-import { PeriodType } from "../../pages/shared/periods/enums";
+import { PeriodType } from "../enums";
 import {
   IncomeExpenseRefModel,
   IncomeExpensesSectionModel,
   PeriodModel,
-} from "../../pages/shared/periods/model.server";
-import { sum, transformRecord } from "../../pages/shared/util";
+} from "../model.server";
+import { sum, transformRecord } from "../../util";
 import {
   calculateLossEntries,
   calculateProfitEntries,

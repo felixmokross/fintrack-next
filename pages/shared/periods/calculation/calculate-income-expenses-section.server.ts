@@ -1,18 +1,21 @@
 import Decimal from "decimal.js-light";
 import { flatten, groupBy } from "lodash";
-import { BookingType } from "../../pages/shared/transactions/enums";
+import { BookingType } from "../../transactions/enums";
 import {
   IncomeExpenseRefModel,
   IncomeExpensesSectionModel,
-} from "../../pages/shared/periods/model.server";
+} from "../model.server";
 import {
   BookingModel,
   ExpenseModel,
   IncomeModel,
   TransactionModel,
-} from "../../pages/shared/transactions/model.server";
-import { referenceCurrency, sum } from "../../pages/shared/util";
-import { convertToCurrency, RateProvider } from "./forex-rates.server";
+} from "../../transactions/model.server";
+import { referenceCurrency, sum } from "../../util";
+import {
+  convertToCurrency,
+  RateProvider,
+} from "../../forex-rates/functions.server";
 
 export function calculateIncomeExpensesSection<
   TBookingType extends IncomeExpenseBookingType

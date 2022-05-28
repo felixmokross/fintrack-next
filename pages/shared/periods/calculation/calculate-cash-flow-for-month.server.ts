@@ -1,6 +1,6 @@
 import { Dayjs } from "dayjs";
 import Decimal from "decimal.js-light";
-import { MonthBalancesModel } from "../../pages/shared/balances/model.server";
+import { MonthBalancesModel } from "../../balances/model.server";
 
 export function calculateCashFlowForMonth(
   month: Dayjs,

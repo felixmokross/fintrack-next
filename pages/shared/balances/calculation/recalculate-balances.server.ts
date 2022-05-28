@@ -1,26 +1,20 @@
 import dayjs, { Dayjs } from "dayjs";
 import { Db } from "mongodb";
-import {
-  DayBalances,
-  deserializeDayBalances,
-} from "../../pages/shared/balances/documents.server";
-import {
-  Account,
-  deserializeAccount,
-} from "../../pages/shared/accounts/documents.server";
-import { DayBalancesModel } from "../../pages/shared/balances/model.server";
-import { TransactionModel } from "../../pages/shared/transactions/model.server";
-import { AccountModel } from "../../pages/shared/accounts/model.server";
-import { serializeDate } from "../../pages/shared/serialization.server";
-import { today } from "../../pages/shared/today";
-import { byKey } from "../../pages/shared/util";
-import { RateProvider } from "./forex-rates.server";
+import { DayBalances, deserializeDayBalances } from "../documents.server";
+import { Account, deserializeAccount } from "../../accounts/documents.server";
+import { DayBalancesModel } from "../model.server";
+import { TransactionModel } from "../../transactions/model.server";
+import { AccountModel } from "../../accounts/model.server";
+import { serializeDate } from "../../serialization.server";
+import { today } from "../../today";
+import { byKey } from "../../util";
+import { RateProvider } from "../../forex-rates/functions.server";
 import { recalculateDayBalances } from "./recalculate-day-balances.server";
-import recalculateDayLedgers from "./recalculate-day-ledgers.server";
+import recalculateDayLedgers from "../../day-ledgers/recalculate-day-ledgers.server";
 import { recalculateMonthBalances } from "./recalculate-month-balances.server";
-import { StockPriceProvider } from "./stock-prices.server";
-import { Stopwatch } from "./stopwatch.server";
-import { globalOpeningDate } from "../../pages/shared/global-opening-date.server";
+import { StockPriceProvider } from "../../stock-prices/functions.server";
+import { Stopwatch } from "../../stopwatch.server";
+import { globalOpeningDate } from "../../global-opening-date.server";
 
 export async function recalculateBalances(
   db: Db,

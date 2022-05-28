@@ -1,6 +1,6 @@
 import { withApiAuthRequired } from "@auth0/nextjs-auth0";
 import dayjs from "dayjs";
-import { recalculate } from "../../../lib/calculation/recalculate.server";
+import { recalculate } from "../../shared/recalculate.server";
 import {
   toBooking,
   Transaction,

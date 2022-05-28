@@ -1,17 +1,17 @@
 import Decimal from "decimal.js-light";
-import { BookingType } from "../../pages/shared/transactions/enums";
-import { AccountBalanceModel } from "../../pages/shared/balances/model.server";
+import { BookingType } from "../../transactions/enums";
+import { AccountBalanceModel } from "../../balances/model.server";
 import {
   ChargeModel,
   DepositModel,
   TransactionModel,
-} from "../../pages/shared/transactions/model.server";
-import { AccountModel } from "../../pages/shared/accounts/model.server";
-import { ensure, sum } from "../../pages/shared/util";
-import { isChargeOrDeposit } from "../../pages/shared/transactions/functions";
-import { convertToReferenceCurrencyForUnit } from "./convert-to-reference-currency-for-unit.server";
-import { RateProvider } from "./forex-rates.server";
-import { StockPriceProvider } from "./stock-prices.server";
+} from "../../transactions/model.server";
+import { AccountModel } from "../../accounts/model.server";
+import { ensure, sum } from "../../util";
+import { isChargeOrDeposit } from "../../transactions/functions";
+import { convertToReferenceCurrencyForUnit } from "../../convert-to-reference-currency-for-unit.server";
+import { RateProvider } from "../../forex-rates/functions.server";
+import { StockPriceProvider } from "../../stock-prices/functions.server";
 
 export function calculateUnitProfitOrLossForAccount(
   account: AccountModel,

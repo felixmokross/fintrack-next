@@ -1,11 +1,8 @@
 import Decimal from "decimal.js-light";
 import { groupBy, orderBy, sortBy } from "lodash";
-import {
-  DayBalancesModel,
-  MonthBalancesModel,
-} from "../../pages/shared/balances/model.server";
-import { AccountModel } from "../../pages/shared/accounts/model.server";
-import { sum } from "../../pages/shared/util";
+import { AccountModel } from "../../accounts/model.server";
+import { sum } from "../../util";
+import { DayBalancesModel, MonthBalancesModel } from "../model.server";
 
 export function calculateNewMonthBalances(
   newDayBalances: readonly DayBalancesModel[],

@@ -1,24 +1,27 @@
 import Decimal from "decimal.js-light";
 import { uniq } from "lodash";
-import { BookingType } from "../../pages/shared/transactions/enums";
-import { AccountUnitKind } from "../../pages/shared/accounts/enums";
-import { TransferProfitOrLossSectionModel } from "../../pages/shared/periods/model.server";
+import { BookingType } from "../../transactions/enums";
+import { AccountUnitKind } from "../../accounts/enums";
+import { TransferProfitOrLossSectionModel } from "../model.server";
 import {
   ChargeModel,
   DepositModel,
   ExpenseModel,
   IncomeModel,
   TransactionModel,
-} from "../../pages/shared/transactions/model.server";
-import { AccountUnitModel } from "../../pages/shared/accounts/model.server";
-import { referenceCurrency, sum } from "../../pages/shared/util";
+} from "../../transactions/model.server";
+import { AccountUnitModel } from "../../accounts/model.server";
+import { referenceCurrency, sum } from "../../util";
 import {
   isChargeOrDeposit,
   isIncomeOrExpense,
-} from "../../pages/shared/transactions/functions";
-import { convertToReferenceCurrencyForUnit } from "./convert-to-reference-currency-for-unit.server";
-import { convertToCurrency, RateProvider } from "./forex-rates.server";
-import { StockPriceProvider } from "./stock-prices.server";
+} from "../../transactions/functions";
+import { convertToReferenceCurrencyForUnit } from "../../convert-to-reference-currency-for-unit.server";
+import { StockPriceProvider } from "../../stock-prices/functions.server";
+import {
+  convertToCurrency,
+  RateProvider,
+} from "../../forex-rates/functions.server";
 
 export function calculateTransferProfitOrLossSection(
   transactions: readonly TransactionModel[],

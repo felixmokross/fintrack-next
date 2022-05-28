@@ -1,16 +1,19 @@
 import Decimal from "decimal.js-light";
 import { flatten } from "lodash";
-import { BookingType } from "../../pages/shared/transactions/enums";
-import { AccountUnitKind } from "../../pages/shared/accounts/enums";
+import { BookingType } from "../../transactions/enums";
+import { AccountUnitKind } from "../../accounts/enums";
 import {
   AppreciationModel,
   DepreciationModel,
   TransactionModel,
-} from "../../pages/shared/transactions/model.server";
-import { AccountModel } from "../../pages/shared/accounts/model.server";
-import { referenceCurrency, sum } from "../../pages/shared/util";
-import { isAppreciationOrDepreciation } from "../../pages/shared/transactions/functions";
-import { convertToCurrency, RateProvider } from "./forex-rates.server";
+} from "../../transactions/model.server";
+import { AccountModel } from "../../accounts/model.server";
+import { referenceCurrency, sum } from "../../util";
+import { isAppreciationOrDepreciation } from "../../transactions/functions";
+import {
+  convertToCurrency,
+  RateProvider,
+} from "../../forex-rates/functions.server";
 
 // TODO do we need this function? Doesn't calculateUNitProfitOrLossForAccount work equally?
 export default function calculateValueChangeProfitOrLossForAccount(

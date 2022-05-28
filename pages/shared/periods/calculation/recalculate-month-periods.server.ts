@@ -1,36 +1,29 @@
 import { Dayjs } from "dayjs";
 import { groupBy } from "lodash";
 import { Db } from "mongodb";
-import {
-  MonthPeriod,
-  Period,
-  serializePeriod,
-} from "../../pages/shared/periods/documents.server";
+import { MonthPeriod, Period, serializePeriod } from "../documents.server";
 import {
   DayBalances,
   deserializeDayBalances,
   deserializeMonthBalances,
   MonthBalances,
-} from "../../pages/shared/balances/documents.server";
-import { AccountCategory } from "../../pages/shared/account-categories/documents.server";
-import {
-  Account,
-  deserializeAccount,
-} from "../../pages/shared/accounts/documents.server";
-import { PeriodModel } from "../../pages/shared/periods/model.server";
+} from "../../balances/documents.server";
+import { AccountCategory } from "../../account-categories/documents.server";
+import { Account, deserializeAccount } from "../../accounts/documents.server";
+import { PeriodModel } from "../model.server";
 import {
   DayBalancesModel,
   MonthBalancesModel,
-} from "../../pages/shared/balances/model.server";
-import { TransactionModel } from "../../pages/shared/transactions/model.server";
-import { AccountModel } from "../../pages/shared/accounts/model.server";
-import { serializeDate } from "../../pages/shared/serialization.server";
-import { byKey } from "../../pages/shared/util";
+} from "../../balances/model.server";
+import { TransactionModel } from "../../transactions/model.server";
+import { AccountModel } from "../../accounts/model.server";
+import { serializeDate } from "../../serialization.server";
+import { byKey } from "../../util";
 import { calculateMonthPeriod } from "./calculate-month-period.server";
-import { RateProvider } from "./forex-rates.server";
-import { StockPriceProvider } from "./stock-prices.server";
-import { Stopwatch } from "./stopwatch.server";
-import { globalOpeningDate } from "../../pages/shared/global-opening-date.server";
+import { globalOpeningDate } from "../../global-opening-date.server";
+import { StockPriceProvider } from "../../stock-prices/functions.server";
+import { RateProvider } from "../../forex-rates/functions.server";
+import { Stopwatch } from "../../stopwatch.server";
 
 export async function recalculateMonthPeriods(
   db: Db,

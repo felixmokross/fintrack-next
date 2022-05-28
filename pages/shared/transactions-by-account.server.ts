@@ -1,5 +1,5 @@
-import { TransactionModel } from "../../pages/shared/transactions/model.server";
-import { isChargeOrDeposit } from "../../pages/shared/transactions/functions";
+import { TransactionModel } from "./transactions/model.server";
+import { isChargeOrDeposit } from "./transactions/functions";
 
 export function getTransactionsByAccountId(
   transactions: readonly TransactionModel[]
