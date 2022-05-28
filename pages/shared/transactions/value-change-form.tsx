@@ -1,11 +1,8 @@
 import { ReactElement } from "react";
-import { dateFormat } from "../../../lib/util";
+import { dateFormat } from "../util";
 import { DatepickerInput } from "../datepicker/datepicker-input";
-import {
-  SaveTransactionBookingDto,
-  SaveTransactionDto,
-} from "../../../lib/dtos";
-import { BookingType } from "../../../lib/enums";
+import { SaveTransactionBookingDto, SaveTransactionDto } from "./dtos";
+import { BookingType } from "./enums";
 import Decimal from "decimal.js-light";
 import dayjs from "dayjs";
 import { FormikErrors } from "formik";

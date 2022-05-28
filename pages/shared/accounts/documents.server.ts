@@ -1,5 +1,5 @@
 import { Decimal128, ObjectId } from "mongodb";
-import { AccountCategoryType } from "../../../lib/enums";
+import { AccountCategoryType } from "../account-categories/enums";
 import { AccountUnitDto } from "./dtos";
 import { AccountType, AccountUnitKind } from "./enums";
 

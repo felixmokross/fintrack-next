@@ -1,8 +1,8 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Link, { LinkProps } from "next/link";
-import { cn } from "../lib/classnames";
-import "../lib/dayjs.init";
+import { cn } from "./shared/classnames";
+import "./dayjs.init";
 import { UserProvider } from "@auth0/nextjs-auth0";
 import { useRouter } from "next/router";
 import { PropsWithChildren } from "react";

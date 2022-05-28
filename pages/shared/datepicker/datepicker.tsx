@@ -1,7 +1,7 @@
 import { PropsWithChildren, ReactElement } from "react";
 import { Dayjs } from "dayjs";
 import { useDatepicker, DatepickerDayButton } from "./use-datepicker";
-import { cn } from "../../../lib/classnames";
+import { cn } from "../classnames";
 import { IconComponentType, NextMonthIcon, PreviousMonthIcon } from "../icons";
 
 export function Datepicker({

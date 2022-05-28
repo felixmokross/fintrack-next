@@ -2,9 +2,9 @@ import { ReactElement, useState } from "react";
 import { Datepicker, DatepickerProps } from "./datepicker";
 import { useField } from "formik";
 import dayjs from "dayjs";
-import { cn } from "../../../lib/classnames";
+import { cn } from "../classnames";
 import { ErrorMessage } from "../forms/error-message";
-import { inputStyles } from "../../../lib/input-styles";
+import { inputStyles } from "../forms/input-styles";
 import { CalendarIcon } from "../icons";
 
 export function DatepickerInput({

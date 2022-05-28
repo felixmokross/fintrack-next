@@ -1,11 +1,12 @@
 import { dropRight, last, orderBy } from "lodash";
 import { Doughnut } from "react-chartjs-2";
-import { byKey, sum } from "../../lib/util";
-import { formatAllocationLabel } from "../../lib/format-allocation-label";
+import { byKey, sum } from "../shared/util";
+import { formatAllocationLabel } from "./format-allocation-label";
 import "chartjs-plugin-datalabels";
 import Decimal from "decimal.js-light";
-import { getDb } from "../../lib/mongodb.server";
-import { AccountCategory, MonthBalances } from "../../lib/documents.server";
+import { getDb } from "../shared/mongodb.server";
+import { MonthBalances } from "../shared/balances/documents.server";
+import { AccountCategory } from "../shared/account-categories/documents.server";
 import { useRouter } from "next/router";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { ChartPageShell } from "../shared/chart-page-shell";

@@ -1,21 +1,21 @@
+import { AccountCategory } from "../pages/shared/account-categories/documents.server";
 import {
-  AccountCategory,
   Booking,
   Charge,
   Deposit,
   Expense,
   Income,
-} from "./documents.server";
+} from "../pages/shared/transactions/documents.server";
 import { Account } from "../pages/shared/accounts/documents.server";
 import {
   SaveTransactionBookingDto,
   SaveTransactionChargeDto,
   SaveTransactionDepositDto,
-} from "./dtos";
+} from "../pages/shared/transactions/dtos";
 import { AccountCategoryDto } from "../pages/shared/accounts/dtos";
-import { BookingType } from "./enums";
+import { BookingType } from "../pages/shared/transactions/enums";
 import { serializeDecimal, serializeId } from "./serialization.server";
-import { ensure } from "./util";
+import { ensure } from "../pages/shared/util";
 
 export function toAccountCategoryDto(
   accountCategory: AccountCategory

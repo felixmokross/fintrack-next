@@ -1,5 +1,5 @@
 import Decimal from "decimal.js-light";
-import { formatUnitValue, locale, RoundingMode } from "./util";
+import { formatUnitValue, locale, RoundingMode } from "../shared/util";
 
 const percentageFormat = new Intl.NumberFormat(locale, { style: "percent" });
 

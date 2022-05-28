@@ -1,14 +1,14 @@
 import { Dayjs } from "dayjs";
 import { Db } from "mongodb";
-import { MonthBalances } from "../documents.server";
-import { globalOpeningDate } from "../global-opening-date.server";
+import { MonthBalances } from "../../pages/shared/balances/documents.server";
 import {
-  AccountModel,
   DayBalancesModel,
   MonthBalancesModel,
-} from "../model.server";
+} from "../../pages/shared/balances/model.server";
+import { AccountModel } from "../../pages/shared/accounts/model.server";
 import { serializeDate, serializeMonthBalances } from "../serialization.server";
 import { calculateNewMonthBalances } from "./calculate-new-month-balances.server";
+import { globalOpeningDate } from "../../pages/shared/global-opening-date.server";
 
 export async function recalculateMonthBalances(
   db: Db,

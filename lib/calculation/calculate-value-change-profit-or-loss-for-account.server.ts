@@ -1,14 +1,15 @@
 import Decimal from "decimal.js-light";
 import { flatten } from "lodash";
-import { BookingType } from "../enums";
+import { BookingType } from "../../pages/shared/transactions/enums";
 import { AccountUnitKind } from "../../pages/shared/accounts/enums";
 import {
-  AccountModel,
   AppreciationModel,
   DepreciationModel,
   TransactionModel,
-} from "../model.server";
-import { isAppreciationOrDepreciation, referenceCurrency, sum } from "../util";
+} from "../../pages/shared/transactions/model.server";
+import { AccountModel } from "../../pages/shared/accounts/model.server";
+import { referenceCurrency, sum } from "../../pages/shared/util";
+import { isAppreciationOrDepreciation } from "../../pages/shared/transactions/functions";
 import { convertToCurrency, RateProvider } from "./forex-rates.server";
 
 // TODO do we need this function? Doesn't calculateUNitProfitOrLossForAccount work equally?

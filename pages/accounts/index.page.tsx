@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { getDb } from "../../lib/mongodb.server";
+import { getDb } from "../shared/mongodb.server";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { AccountDetailLayout, PageLayout } from "./shared/layouts";
 import { AccountList } from "./shared/account-list";

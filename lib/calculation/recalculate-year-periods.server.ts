@@ -1,10 +1,13 @@
 import { Dayjs } from "dayjs";
 import { groupBy } from "lodash";
 import { Db } from "mongodb";
-import { MonthPeriod, Period } from "../documents.server";
-import { PeriodType } from "../enums";
-import { globalOpeningDate } from "../global-opening-date.server";
-import { PeriodModel } from "../model.server";
+import { globalOpeningDate } from "../../pages/shared/global-opening-date.server";
+import {
+  MonthPeriod,
+  Period,
+} from "../../pages/shared/periods/documents.server";
+import { PeriodType } from "../../pages/shared/periods/enums";
+import { PeriodModel } from "../../pages/shared/periods/model.server";
 import {
   deserializeMonthPeriod,
   serializeDate,

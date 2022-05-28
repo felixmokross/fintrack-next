@@ -1,5 +1,5 @@
 import { PropsWithChildren, ReactElement, useContext } from "react";
-import { cn } from "../../../lib/classnames";
+import { cn } from "../classnames";
 import { IconComponentType } from "../icons";
 import DropdownContext from "./dropdown-context";
 

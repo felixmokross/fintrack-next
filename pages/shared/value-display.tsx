@@ -1,6 +1,6 @@
 import Decimal from "decimal.js-light";
 import { useState } from "react";
-import { locale } from "../../lib/util";
+import { locale } from "./util";
 import { AccountUnitDto } from "./accounts/dtos";
 import { AccountUnitKind } from "./accounts/enums";
 

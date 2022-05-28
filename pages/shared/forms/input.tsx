@@ -1,8 +1,8 @@
 import { ReactElement } from "react";
 import { useField } from "formik";
 import { ErrorMessage } from "./error-message";
-import { inputStyles } from "../../../lib/input-styles";
-import { cn } from "../../../lib/classnames";
+import { inputStyles } from "./input-styles";
+import { cn } from "../classnames";
 
 export function Input({
   name,

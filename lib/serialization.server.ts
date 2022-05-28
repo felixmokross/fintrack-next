@@ -2,55 +2,65 @@ import dayjs, { Dayjs } from "dayjs";
 import Decimal, { Numeric } from "decimal.js-light";
 import { Decimal128, ObjectId } from "mongodb";
 import {
+  IncomeExpenseRef,
+  IncomeExpensesSection,
+  MonthPeriod,
+  Period,
+  ProfitOrLossEntry,
+  TransferProfitOrLossSection,
+  ValueProfitOrLossSection,
+} from "../pages/shared/periods/documents.server";
+import {
+  DayBalances,
+  MonthBalances,
+} from "../pages/shared/balances/documents.server";
+import { DayLedger } from "../pages/shared/day-ledgers/documents.server";
+import {
   Appreciation,
   Booking,
   Charge,
-  DayBalances,
-  DayLedger,
   Deposit,
   Depreciation,
   Expense,
   Income,
-  IncomeExpenseRef,
-  IncomeExpensesSection,
-  MonthBalances,
-  MonthPeriod,
-  Period,
-  ProfitOrLossEntry,
   Transaction,
-  TransferProfitOrLossSection,
-  ValueProfitOrLossSection,
-} from "./documents.server";
+} from "../pages/shared/transactions/documents.server";
 import {
   Account,
   AccountUnit,
   StockAccountUnit,
 } from "../pages/shared/accounts/documents.server";
-import { BookingType } from "./enums";
+import { BookingType } from "../pages/shared/transactions/enums";
 import { AccountUnitKind } from "../pages/shared/accounts/enums";
 import {
-  AccountModel,
-  AccountUnitModel,
+  IncomeExpenseRefModel,
+  IncomeExpensesSectionModel,
+  PeriodModel,
+  ProfitOrLossEntryModel,
+  TransferProfitOrLossSectionModel,
+  ValueProfitOrLossSectionModel,
+} from "../pages/shared/periods/model.server";
+import {
+  DayBalancesModel,
+  MonthBalancesModel,
+} from "../pages/shared/balances/model.server";
+import { DayLedgerModel } from "../pages/shared/day-ledgers/model.server";
+import {
   AppreciationModel,
   BookingModel,
   ChargeModel,
-  DayBalancesModel,
-  DayLedgerModel,
   DepositModel,
   DepreciationModel,
   ExpenseModel,
-  IncomeExpenseRefModel,
-  IncomeExpensesSectionModel,
   IncomeModel,
-  MonthBalancesModel,
-  PeriodModel,
-  ProfitOrLossEntryModel,
-  StockAccountUnitModel,
   TransactionModel,
-  TransferProfitOrLossSectionModel,
-  ValueProfitOrLossSectionModel,
-} from "./model.server";
-import { ensure, transformRecord } from "./util";
+} from "../pages/shared/transactions/model.server";
+import {
+  AccountModel,
+  AccountUnitModel,
+  StockAccountUnitModel,
+} from "../pages/shared/accounts/model.server";
+import { ensure, transformRecord } from "../pages/shared/util";
 
 export function serializeDecimal(value: Numeric): Decimal128 {
   return Decimal128.fromString(value.toString());

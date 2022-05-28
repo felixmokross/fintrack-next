@@ -1,13 +1,13 @@
 import { withApiAuthRequired } from "@auth0/nextjs-auth0";
 import dayjs from "dayjs";
 import { recalculate } from "../../../lib/calculation/recalculate.server";
-import { Transaction } from "../../../lib/documents.server";
+import { Transaction } from "../../shared/transactions/documents.server";
 import { Account } from "../../shared/accounts/documents.server";
-import { SaveTransactionDto } from "../../../lib/dtos";
+import { SaveTransactionDto } from "../../shared/transactions/dtos";
 import { toBooking } from "../../../lib/mappings.server";
-import { getDb } from "../../../lib/mongodb.server";
+import { getDb } from "../../shared/mongodb.server";
 import { serializeId } from "../../../lib/serialization.server";
-import { isChargeOrDeposit } from "../../../lib/util";
+import { isChargeOrDeposit } from "../../shared/transactions/functions";
 
 export default withApiAuthRequired(async function createTransaction(req, res) {
   if (req.method !== "POST") {

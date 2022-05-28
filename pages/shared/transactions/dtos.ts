@@ -1,4 +1,4 @@
-import { AccountUnitDto } from "../pages/shared/accounts/dtos";
+import { AccountUnitDto } from "../accounts/dtos";
 import { BookingType } from "./enums";
 
 export type SaveTransactionDto = Pick<TransactionDto, "date" | "note"> & {

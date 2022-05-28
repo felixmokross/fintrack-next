@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { useState } from "react";
 import { AccountDetailDto, AccountUnitDto } from "../../shared/accounts/dtos";
 import { AccountType, AccountUnitKind } from "../../shared/accounts/enums";
-import { dateFormat } from "../../../lib/util";
+import { dateFormat } from "../../shared/util";
 import AccountActionsMenu from "./account-actions-menu";
 import EditableAccountName from "./editable-account-name";
 import { NewTransactionDropdown } from "./new-transaction-dropdown";

@@ -2,7 +2,7 @@ import { withApiAuthRequired } from "@auth0/nextjs-auth0";
 import dayjs from "dayjs";
 import { Account } from "../../../shared/accounts/documents.server";
 import { AccountClosingDateDto } from "../../../shared/accounts/dtos";
-import { getDb } from "../../../../lib/mongodb.server";
+import { getDb } from "../../../shared/mongodb.server";
 import { serializeId } from "../../../../lib/serialization.server";
 
 export default withApiAuthRequired(async function updateClosingDate(req, res) {

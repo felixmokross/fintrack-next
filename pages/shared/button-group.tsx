@@ -1,5 +1,5 @@
 import { PropsWithChildren, ReactElement } from "react";
-import { cn } from "../../lib/classnames";
+import { cn } from "./classnames";
 
 export function ButtonGroup({
   className,

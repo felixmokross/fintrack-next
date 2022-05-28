@@ -2,13 +2,13 @@ import dayjs from "dayjs";
 import { FormikErrors } from "formik";
 import { ReactElement } from "react";
 import { DatepickerInput } from "../../shared/datepicker/datepicker-input";
-import { useReload } from "../../../lib/reload";
-import { dateFormat } from "../../../lib/util";
+import { dateFormat } from "../../shared/util";
 import { Modal, ModalBody, ModalFooter, ModalSize } from "../../shared/modal";
 import Form from "../../shared/forms/form";
 import SubmitButton from "../../shared/forms/submit-button";
 import { Button, ButtonVariant } from "../../shared/button";
-import api from "../../../lib/api";
+import { useReload } from "../../shared/reload";
+import api from "../../shared/api";
 
 export default function CloseAccountModal({
   accountId,

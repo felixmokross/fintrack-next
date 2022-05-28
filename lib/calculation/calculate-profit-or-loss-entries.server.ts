@@ -3,7 +3,7 @@ import {
   ProfitOrLossEntryModel,
   TransferProfitOrLossSectionModel,
   ValueProfitOrLossSectionModel,
-} from "../model.server";
+} from "../../pages/shared/periods/model.server";
 
 export function calculateProfitEntries(
   incomeExpensesSection: IncomeExpensesSectionModel,

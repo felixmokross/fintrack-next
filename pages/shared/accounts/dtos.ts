@@ -1,4 +1,4 @@
-import { AccountCategoryType } from "../../../lib/enums";
+import { AccountCategoryType } from "../account-categories/enums";
 import { AccountType, AccountUnitKind } from "./enums";
 
 export interface AccountDto {
