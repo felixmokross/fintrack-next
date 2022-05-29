@@ -1,0 +1,14 @@
+name: updater
+
+on:
+  schedule:
+    - cron: "0 7 * * *"
+
+jobs:
+  updater:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Updates
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
