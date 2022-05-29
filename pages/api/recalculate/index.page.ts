@@ -9,6 +9,7 @@ import { Response } from "express";
 import { NextApiHandler } from "next";
 import { recalculate } from "../../shared/recalculate.server";
 import { getDb } from "../../shared/mongodb.server";
+import { today } from "../../shared/today";
 
 const issuerBaseUrl = process.env.AUTH0_ISSUER_BASE_URL;
 if (!issuerBaseUrl) throw new Error("AUTH0_ISSUER_BASE_URL not set!");
@@ -50,7 +51,7 @@ const handleRecalculate: NextApiHandler = async (req, res) => {
   }
 
   const db = await getDb(adminApiTenantName);
-  await recalculate(db);
+  await recalculate(db, undefined, today().subtract(1, "day"));
 
   res.json({ message: "success" });
 };
