@@ -1,8 +1,8 @@
 import { withApiAuthRequired } from "@auth0/nextjs-auth0";
 import { Account } from "../../../accounts/shared/documents.server";
 import { RenameAccountDto } from "../../../accounts/shared/dtos";
-import { getDb } from "../../../shared/mongodb.server";
 import { serializeId } from "../../../shared/serialization.server";
+import { getTenantDb } from "../../../shared/util.server";
 
 export default withApiAuthRequired(async function updateAccountName(req, res) {
   if (req.method !== "PUT") {
@@ -16,7 +16,7 @@ export default withApiAuthRequired(async function updateAccountName(req, res) {
   }
 
   const dto = req.body as RenameAccountDto;
-  const db = await getDb();
+  const db = await getTenantDb(req, res);
 
   const { matchedCount } = await db
     .collection<Account>("accounts")

@@ -2,8 +2,8 @@ import { withApiAuthRequired } from "@auth0/nextjs-auth0";
 import dayjs from "dayjs";
 import { Account } from "../../../accounts/shared/documents.server";
 import { AccountClosingDateDto } from "../../../accounts/shared/dtos";
-import { getDb } from "../../../shared/mongodb.server";
 import { serializeId } from "../../../shared/serialization.server";
+import { getTenantDb } from "../../../shared/util.server";
 
 export default withApiAuthRequired(async function updateClosingDate(req, res) {
   if (req.method !== "PUT") {
@@ -17,7 +17,7 @@ export default withApiAuthRequired(async function updateClosingDate(req, res) {
   }
 
   const dto = req.body as AccountClosingDateDto;
-  const db = await getDb();
+  const db = await getTenantDb(req, res);
 
   const { matchedCount } = await db
     .collection<Account>("accounts")

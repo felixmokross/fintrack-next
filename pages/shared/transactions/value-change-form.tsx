@@ -76,7 +76,7 @@ export function transformValueChangeFormValuesToSaveTransactionDto(
 ): SaveTransactionDto {
   return {
     date: dayjs.utc(values.date, dateFormat).format("YYYY-MM-DD"),
-    note: values.note || undefined,
+    note: values.note || null,
     bookings: getBookings(),
   };
 
@@ -88,14 +88,19 @@ export function transformValueChangeFormValuesToSaveTransactionDto(
     if (valueChangeDecimal.isPositive()) {
       return [
         { type: BookingType.APPRECIATION, amount: values.valueChange },
-        { type: BookingType.DEPOSIT, accountId, amount: values.valueChange },
+        {
+          type: BookingType.DEPOSIT,
+          accountId,
+          amount: values.valueChange,
+          note: null,
+        },
       ];
     }
 
     const amount = valueChangeDecimal.negated().toString();
     return [
       { type: BookingType.DEPRECIATION, amount },
-      { type: BookingType.CHARGE, accountId, amount },
+      { type: BookingType.CHARGE, accountId, amount, note: null },
     ];
   }
 }

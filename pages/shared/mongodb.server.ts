@@ -25,8 +25,8 @@ if (process.env.NODE_ENV === "development") {
   clientPromise = client.connect();
 }
 
-export async function getDb() {
-  return (await clientPromise).db();
+export async function getDb(dbName: string) {
+  return (await clientPromise).db(dbName);
 }
 
 declare global {

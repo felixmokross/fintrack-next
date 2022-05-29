@@ -1,6 +1,5 @@
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { NextPage } from "next";
-import { getDb } from "../../shared/mongodb.server";
 import { AccountDetail } from "./account-detail";
 import { AccountList } from "../shared/account-list";
 import { getAccountCategoriesWithAccounts } from "../shared/data-loading.server";
@@ -23,6 +22,7 @@ import {
   BookingDto,
   DepreciationDto,
 } from "../../shared/transactions/dtos";
+import { getTenantDb } from "../../shared/util.server";
 
 const AccountsDetailPage: NextPage<
   AccountsDetailPageProps,
@@ -54,10 +54,10 @@ export const getServerSideProps = withPageAuthRequired<
   AccountsDetailPageProps,
   AccountsDetailPageParams
 >({
-  getServerSideProps: async ({ params }) => {
+  getServerSideProps: async ({ req, res, params }) => {
     if (!params) throw new Error("No params");
 
-    const db = await getDb();
+    const db = await getTenantDb(req, res);
 
     const [account, accountCategories, dayLedgers] = await Promise.all([
       getAccountDetail(db, params.accountId),

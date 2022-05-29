@@ -4,13 +4,13 @@ import { byKey, sum } from "../shared/util";
 import { formatAllocationLabel } from "./format-allocation-label";
 import "chartjs-plugin-datalabels";
 import Decimal from "decimal.js-light";
-import { getDb } from "../shared/mongodb.server";
 import { MonthBalances } from "../shared/balances/documents.server";
 import { AccountCategory } from "../shared/account-categories/documents.server";
 import { useRouter } from "next/router";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { ChartPageShell } from "../shared/chart-page-shell";
 import { ButtonGroup } from "../shared/button-group";
+import { getTenantDb } from "../shared/util.server";
 
 export default function AllocationPage({ data, total }: AllocationPageProps) {
   const { query, replace } = useRouter();
@@ -87,10 +87,10 @@ export const getServerSideProps = withPageAuthRequired<
   AllocationPageProps,
   AllocationPageParams
 >({
-  getServerSideProps: async ({ params }) => {
+  getServerSideProps: async ({ params, req, res }) => {
     if (!params) throw new Error("No params set!");
 
-    const db = await getDb();
+    const db = await getTenantDb(req, res);
     const monthBalances = await db
       .collection<MonthBalances>("monthBalances")
       .find()

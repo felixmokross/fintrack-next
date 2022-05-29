@@ -8,11 +8,11 @@ import { ExpenseCategory } from "../../shared/expense-categories/documents.serve
 import { ExpenseCategoryDto } from "../../shared/expense-categories/dtos";
 import { IncomeCategory } from "../../shared/income-categories/documents.server";
 import { IncomeCategoryDto } from "../../shared/income-categories/dtos";
-import { getDb } from "../../shared/mongodb.server";
 import { RefDataDto } from "../../shared/ref-data/dtos";
 import { Stock } from "../../shared/stocks/documents.server";
 import { StockDto } from "../../shared/stocks/dtos";
 import { byKey, ensure } from "../../shared/util";
+import { getTenantDb } from "../../shared/util.server";
 
 export default withApiAuthRequired(async function getRefData(req, res) {
   if (req.method !== "GET") {
@@ -20,7 +20,7 @@ export default withApiAuthRequired(async function getRefData(req, res) {
     return;
   }
 
-  const db = await getDb();
+  const db = await getTenantDb(req, res);
 
   const [currencies, stocks, incomeCategories, expenseCategories, accounts] =
     await Promise.all([

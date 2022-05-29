@@ -7,9 +7,9 @@ import {
 } from "../../shared/transactions/documents.server";
 import { Account } from "../../accounts/shared/documents.server";
 import { SaveTransactionDto } from "../../shared/transactions/dtos";
-import { getDb } from "../../shared/mongodb.server";
 import { serializeId } from "../../shared/serialization.server";
 import { isChargeOrDeposit } from "../../shared/transactions/functions";
+import { getTenantDb } from "../../shared/util.server";
 
 export default withApiAuthRequired(async function createTransaction(req, res) {
   if (req.method !== "POST") {
@@ -22,7 +22,7 @@ export default withApiAuthRequired(async function createTransaction(req, res) {
     .filter(isChargeOrDeposit)
     .map((b) => serializeId(b.accountId));
 
-  const db = await getDb();
+  const db = await getTenantDb(req, res);
   const accounts = await db
     .collection<Account>("accounts")
     .find({ _id: { $in: accountIds } })
@@ -35,7 +35,7 @@ export default withApiAuthRequired(async function createTransaction(req, res) {
     .collection<Transaction>("transactions")
     .insertOne({
       date: transactionDate.toDate(),
-      note: dto.note,
+      note: dto.note || undefined,
       bookings: dto.bookings.map((b) => toBooking(b, accounts)),
     });
 
