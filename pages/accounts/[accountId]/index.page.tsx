@@ -11,16 +11,28 @@ import { Account, toAccountUnitDto } from "../shared/documents.server";
 import { serializeId } from "../../shared/serialization.server";
 import { ensure } from "../../shared/util";
 import { AccountDetailDto } from "./dtos";
+import { DayLedgerDto, DayLedgerLineDto } from "../../shared/day-ledgers/dtos";
+import {
+  DayLedger,
+  DayLedgerLine,
+} from "../../shared/day-ledgers/documents.server";
+import { BookingType } from "../../shared/transactions/enums";
+import { Booking } from "../../shared/transactions/documents.server";
+import {
+  AppreciationDto,
+  BookingDto,
+  DepreciationDto,
+} from "../../shared/transactions/dtos";
 
 const AccountsDetailPage: NextPage<
   AccountsDetailPageProps,
   AccountsDetailPageParams
-> = ({ accountCategories, account }) => {
+> = ({ accountCategories, account, dayLedgers }) => {
   return (
     <PageLayout>
       <AccountList accountCategories={accountCategories} />
       <AccountDetailLayout>
-        <AccountDetail account={account} />
+        <AccountDetail account={account} dayLedgers={dayLedgers} />
       </AccountDetailLayout>
     </PageLayout>
   );
@@ -31,6 +43,7 @@ export default AccountsDetailPage;
 export type AccountsDetailPageProps = {
   accountCategories: AccountCategoryWithAccountsDto[];
   account: AccountDetailDto;
+  dayLedgers: DayLedgerDto[];
 };
 
 export type AccountsDetailPageParams = {
@@ -46,9 +59,10 @@ export const getServerSideProps = withPageAuthRequired<
 
     const db = await getDb();
 
-    const [account, accountCategories] = await Promise.all([
+    const [account, accountCategories, dayLedgers] = await Promise.all([
       getAccountDetail(db, params.accountId),
       getAccountCategoriesWithAccounts(db),
+      getDayLedgers(db, params.accountId),
     ]);
 
     if (!account) return { notFound: true };
@@ -57,6 +71,7 @@ export const getServerSideProps = withPageAuthRequired<
       props: {
         accountCategories,
         account,
+        dayLedgers,
       },
     };
   },
@@ -73,6 +88,22 @@ async function getAccountDetail(
   return account ? toAccountDetailDto(account) : null;
 }
 
+async function getDayLedgers(
+  db: Db,
+  accountId: string
+): Promise<DayLedgerDto[]> {
+  return (
+    await db
+      .collection<DayLedger>("dayLedgers")
+      .find({
+        "_id.accountId": serializeId(accountId),
+        lines: { $ne: [] },
+      })
+      .sort({ "_id.date": -1 })
+      .toArray()
+  ).map(toDayLedgerDto);
+}
+
 function toAccountDetailDto(account: Account): AccountDetailDto {
   return {
     _id: ensure(account._id).toHexString(),
@@ -87,4 +118,71 @@ function toAccountDetailDto(account: Account): AccountDetailDto {
     openingDate: account.openingDate?.toUTCString() || null,
     closingDate: account.closingDate?.toUTCString() || null,
   };
+}
+
+function toDayLedgerDto(dayLedger: DayLedger): DayLedgerDto {
+  return {
+    _id: {
+      accountId: dayLedger._id.accountId.toHexString(),
+      date: dayLedger._id.date.toUTCString(),
+    },
+    balance: dayLedger.balance.toString(),
+    lines: dayLedger.lines.map(toDayLedgerLineDto),
+  };
+}
+
+function toDayLedgerLineDto(dayLedgerLine: DayLedgerLine): DayLedgerLineDto {
+  return {
+    transactionId: dayLedgerLine.transactionId.toHexString(),
+    note: dayLedgerLine.note,
+    bookings: dayLedgerLine.bookings.map(toBookingDto),
+    value: dayLedgerLine.value.toString(),
+  };
+}
+
+function toBookingDto(booking: Booking): BookingDto {
+  switch (booking.type) {
+    case BookingType.CHARGE:
+      return {
+        accountId: booking.accountId.toHexString(),
+        unit: toAccountUnitDto(booking.unit),
+        amount: booking.amount.toString(),
+        type: booking.type,
+        note: booking.note || null,
+      };
+    case BookingType.DEPOSIT:
+      return {
+        accountId: booking.accountId.toHexString(),
+        unit: toAccountUnitDto(booking.unit),
+        amount: booking.amount.toString(),
+        type: booking.type,
+        note: booking.note || null,
+      };
+    case BookingType.INCOME:
+      return {
+        incomeCategoryId: booking.incomeCategoryId.toHexString(),
+        currency: booking.currency,
+        amount: booking.amount.toString(),
+        type: booking.type,
+        note: booking.note || null,
+      };
+    case BookingType.EXPENSE:
+      return {
+        expenseCategoryId: booking.expenseCategoryId.toHexString(),
+        currency: booking.currency,
+        amount: booking.amount.toString(),
+        type: booking.type,
+        note: booking.note || null,
+      };
+    case BookingType.APPRECIATION:
+      return {
+        amount: booking.amount.toString(),
+        type: booking.type,
+      } as AppreciationDto;
+    case BookingType.DEPRECIATION:
+      return {
+        amount: booking.amount.toString(),
+        type: booking.type,
+      } as DepreciationDto;
+  }
 }

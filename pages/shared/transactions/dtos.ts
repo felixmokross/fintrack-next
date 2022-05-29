@@ -28,7 +28,7 @@ export type SaveTransactionDepreciationDto = DepreciationDto;
 export interface TransactionDto {
   _id: string;
   date: string;
-  note?: string;
+  note: string | null;
   bookings: readonly BookingDto[];
 }
 
@@ -46,7 +46,7 @@ interface CommonBookingDto {
 
 export interface ChargeDto extends CommonBookingDto {
   type: BookingType.CHARGE;
-  note?: string;
+  note: string | null;
   accountId: string;
   unit: AccountUnitDto;
   amount: string;
@@ -54,7 +54,7 @@ export interface ChargeDto extends CommonBookingDto {
 
 export interface DepositDto extends CommonBookingDto {
   type: BookingType.DEPOSIT;
-  note?: string;
+  note: string | null;
   accountId: string;
   unit: AccountUnitDto;
   amount: string;
@@ -62,7 +62,7 @@ export interface DepositDto extends CommonBookingDto {
 
 export interface IncomeDto extends CommonBookingDto {
   type: BookingType.INCOME;
-  note?: string;
+  note: string | null;
   incomeCategoryId: string;
   currency: string;
   amount: string;
@@ -70,7 +70,7 @@ export interface IncomeDto extends CommonBookingDto {
 
 export interface ExpenseDto extends CommonBookingDto {
   type: BookingType.EXPENSE;
-  note?: string;
+  note: string | null;
   expenseCategoryId: string;
   currency: string;
   amount: string;

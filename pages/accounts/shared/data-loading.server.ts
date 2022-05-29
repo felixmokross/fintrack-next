@@ -4,9 +4,8 @@ import {
   AccountCategory,
   toAccountCategoryDto,
 } from "../../shared/account-categories/documents.server";
-import { Account, toAccountUnitDto } from "./documents.server";
-import { AccountCategoryWithAccountsDto, AccountDto } from "./dtos";
-import { ensure } from "../../shared/util";
+import { Account, toAccountDto } from "./documents.server";
+import { AccountCategoryWithAccountsDto } from "./dtos";
 
 export async function getAccountCategoriesWithAccounts(
   db: Db
@@ -37,25 +36,4 @@ export async function getAccountCategoriesWithAccounts(
       ...ac,
       accounts: accountsByCategoryId[ac._id],
     }));
-}
-
-function toAccountDto(account: Account): AccountDto {
-  return {
-    _id: ensure(account._id).toHexString(),
-    name: account.name,
-    type: account.type,
-    unit: toAccountUnitDto(account.unit),
-    valueTypeId: account.valueTypeId?.toHexString() || null,
-    valueSubtypeId: account.valueSubtypeId?.toHexString() || null,
-    categoryId: account.categoryId.toHexString(),
-    categoryType: account.categoryType,
-    groupId: account.groupId?.toHexString() || null,
-    isActive: account.isActive,
-    currentBalance: {
-      valueInReferenceCurrency:
-        account.currentBalance.valueInReferenceCurrency.toString(),
-      valueInAccountUnit: account.currentBalance.valueInAccountUnit.toString(),
-    },
-    closingDate: account.closingDate?.toUTCString() || null,
-  };
 }

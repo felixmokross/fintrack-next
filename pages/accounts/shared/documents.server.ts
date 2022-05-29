@@ -7,7 +7,7 @@ import {
 } from "../../shared/serialization.server";
 import { AccountCategoryType } from "../../shared/account-categories/enums";
 import { ensure } from "../../shared/util";
-import { AccountUnitDto } from "./dtos";
+import { AccountDto, AccountUnitDto } from "./dtos";
 import { AccountType, AccountUnitKind } from "./enums";
 import {
   AccountModel,
@@ -122,5 +122,26 @@ export function deserializeAccount(a: Account): AccountModel {
       : undefined,
     openingDate: a.openingDate ? deserializeDate(a.openingDate) : undefined,
     unit: deserializeAccountUnit(a.unit),
+  };
+}
+
+export function toAccountDto(account: Account): AccountDto {
+  return {
+    _id: ensure(account._id).toHexString(),
+    name: account.name,
+    type: account.type,
+    unit: toAccountUnitDto(account.unit),
+    valueTypeId: account.valueTypeId?.toHexString() || null,
+    valueSubtypeId: account.valueSubtypeId?.toHexString() || null,
+    categoryId: account.categoryId.toHexString(),
+    categoryType: account.categoryType,
+    groupId: account.groupId?.toHexString() || null,
+    isActive: account.isActive,
+    currentBalance: {
+      valueInReferenceCurrency:
+        account.currentBalance.valueInReferenceCurrency.toString(),
+      valueInAccountUnit: account.currentBalance.valueInAccountUnit.toString(),
+    },
+    closingDate: account.closingDate?.toUTCString() || null,
   };
 }
