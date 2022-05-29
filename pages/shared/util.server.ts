@@ -13,3 +13,10 @@ export async function getTenantDb(req: IncomingMessage, res: ServerResponse) {
 
   return await getDb(tenantName);
 }
+
+export async function getAdminTenantDb() {
+  const adminApiTenantName = process.env.ADMIN_API_TENANT_NAME;
+  if (!adminApiTenantName) throw new Error("ADMIN_API_TENANT_NAME not set!");
+
+  return await getDb(adminApiTenantName);
+}
