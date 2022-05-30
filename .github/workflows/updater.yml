@@ -3,14 +3,13 @@ name: updater
 on:
   schedule:
     - cron: "0 7 * * *"
-  
+
   workflow_dispatch:
 
 jobs:
   updater:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Updates
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+        uses: ./.github/actions/call-updater
