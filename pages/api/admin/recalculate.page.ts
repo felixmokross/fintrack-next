@@ -11,7 +11,7 @@ const handleRecalculate: NextApiHandler = withAdminApiAuth(async (req, res) => {
   }
 
   const db = await getAdminTenantDb();
-  await recalculate(db, undefined, today().subtract(1, "day"));
+  await recalculate(db, undefined, today().subtract(7, "day"));
 
   res.json({ message: "success" });
 });
