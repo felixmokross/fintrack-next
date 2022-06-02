@@ -1,6 +1,10 @@
+import core from "@actions/core";
 import fetch from "node-fetch";
 
-main().catch((e) => console.error(e));
+main().catch((e) => {
+  console.error(e);
+  core.setFailed(e);
+});
 
 async function main() {
   const token = await getToken();
