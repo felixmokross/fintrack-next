@@ -5,7 +5,7 @@ import { DayLedgerDto } from "../../shared/day-ledgers/dtos";
 import { dateFormat } from "../../shared/util";
 import ValueDisplay from "../../shared/value-display";
 import { AccountUnitDto } from "../shared/dtos";
-import { DayLedgerLineRow } from "./day-ledger-row";
+import { DayLedgerLineRow } from "./day-ledger-line-row";
 
 export default function DayLedgerRowGroup({
   dayLedger,
