@@ -9,12 +9,14 @@ import SubmitButton from "../../shared/forms/submit-button";
 import { Button, ButtonVariant } from "../../shared/button";
 import { useReload } from "../../shared/reload";
 import api from "../../shared/api";
+import { useRefData } from "../../ref-data-context";
 
 export default function CloseAccountModal({
   accountId,
   onClose,
 }: CloseAccountModalProps): ReactElement {
   const reload = useReload();
+  const { invalidateRefData } = useRefData();
   return (
     <Modal size={ModalSize.SMALL}>
       <Form<CloseAccountFormValues>
@@ -58,6 +60,7 @@ export default function CloseAccountModal({
 
     onClose();
 
+    invalidateRefData();
     reload();
   }
 }
