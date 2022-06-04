@@ -11,7 +11,9 @@ export function RefDataProvider({ children }: PropsWithChildren<{}>) {
   );
 }
 
-const RefDataContext = createContext<RefDataDto | undefined | null>(null);
+export const RefDataContext = createContext<RefDataDto | undefined | null>(
+  null
+);
 
 export function useRefData(): Partial<RefDataDto> {
   const refData = useContext(RefDataContext);
