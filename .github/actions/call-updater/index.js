@@ -49,7 +49,7 @@ async function getToken() {
 async function ensureFetchSuccess(response) {
   if (response.status !== 200)
     throw new Error(
-      `Token request failed with status code ${
+      `Request failed with status code ${
         response.status
       }: ${await response.text()}`
     );
