@@ -16,6 +16,7 @@ import { BookingType } from "../../shared/transactions/enums";
 import { isChargeOrDeposit } from "../../shared/transactions/functions";
 import ValueDisplay from "../../shared/value-display";
 import { AccountUnitDto } from "../shared/dtos";
+import { ActionsMenu, EditMode } from "./actions-menu";
 
 export function DayLedgerLineRow({
   ledgerLine,
@@ -54,11 +55,11 @@ export function DayLedgerLineRow({
       </td>
       <td className={cn("w-8 pt-4", isLast && "pb-10")}>
         <div className="flex justify-center">
-          {/* <ActionsMenu
-                        transactionId={ledgerLine.transactionId}
-                        accountId={accountId}
-                        editMode={getEditMode(ledgerLine)}
-                    /> */}
+          <ActionsMenu
+            transactionId={ledgerLine.transactionId}
+            accountId={accountId}
+            editMode={getEditMode(ledgerLine)}
+          />
         </div>
       </td>
     </tr>
@@ -125,10 +126,16 @@ function isCounterBooking(booking: BookingDto, accountId: string): boolean {
   return !isChargeOrDeposit(booking) || booking.accountId !== accountId;
 }
 
-// function getEditMode(ledgerLine: DayLedgerLineDto): EditMode {
-//     if (ledgerLine.bookings.some((b) => b.type === BookingType.APPRECIATION || b.type === BookingType.DEPRECIATION)) {
-//         return EditMode.VALUE_CHANGE;
-//     }
+function getEditMode(ledgerLine: DayLedgerLineDto): EditMode {
+  if (
+    ledgerLine.bookings.some(
+      (b) =>
+        b.type === BookingType.APPRECIATION ||
+        b.type === BookingType.DEPRECIATION
+    )
+  ) {
+    return EditMode.VALUE_CHANGE;
+  }
 
-//     return EditMode.TRANSACTION;
-// }
+  return EditMode.TRANSACTION;
+}
