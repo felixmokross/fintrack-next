@@ -3,7 +3,7 @@ import { Datepicker, DatepickerProps } from "./datepicker";
 import { useField } from "formik";
 import dayjs from "dayjs";
 import { cn } from "../classnames";
-import { ErrorMessage } from "../forms/error-message";
+import { ErrorMessage } from "../forms/error-messages";
 import { inputStyles } from "../forms/input-styles";
 import { CalendarIcon } from "../icons";
 

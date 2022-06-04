@@ -1,4 +1,8 @@
+import { uniq } from "lodash";
+import { AccountDto } from "../../accounts/shared/dtos";
+import { isCurrencyUnit } from "../../accounts/shared/util.server";
 import { BookingType } from "./enums";
+import { TransactionFormValues } from "./types";
 
 export function isChargeOrDeposit<T extends BookingLike>(
   booking: T
@@ -52,3 +56,24 @@ export type AppreciationOrDepreciationLike<T> =
   | DepreciationLike<T>;
 
 export type BookingLike = { type: BookingType };
+
+export function getCurrencies(
+  values: TransactionFormValues,
+  accountsById: Record<string, AccountDto>
+): readonly string[] {
+  return uniq(
+    values.bookings
+      .filter(isChargeOrDeposit)
+      .filter((b) => b.accountId)
+      .map((b) => getAccount(b.accountId).unit)
+      .filter(isCurrencyUnit)
+      .map((u) => u.currency)
+  );
+
+  function getAccount(accountId: string): AccountDto {
+    const account = accountsById[accountId];
+    if (!account) throw new Error(`Account ${accountId} does not exist!`);
+
+    return account;
+  }
+}
