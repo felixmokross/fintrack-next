@@ -3,7 +3,7 @@ import { useState } from "react";
 import { AccountUnitDto } from "../accounts/shared/dtos";
 import { AccountUnitKind } from "../accounts/shared/enums";
 import { useRefData } from "../ref-data-context";
-import TextSkeleton, { TextSkeletonLength } from "./text-skeleton";
+import { TextSkeleton, TextSkeletonLength } from "./skeletons";
 import { locale } from "./util";
 
 export default function ValueDisplay(props: ValueDisplayProps) {

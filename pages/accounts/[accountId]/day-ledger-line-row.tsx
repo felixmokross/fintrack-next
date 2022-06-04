@@ -4,7 +4,7 @@ import { useRefData } from "../../ref-data-context";
 import { AccountCategoryType } from "../../shared/account-categories/enums";
 import { cn } from "../../shared/classnames";
 import { DayLedgerLineDto } from "../../shared/day-ledgers/dtos";
-import TextSkeleton, { TextSkeletonLength } from "../../shared/text-skeleton";
+import { TextSkeleton, TextSkeletonLength } from "../../shared/skeletons";
 import {
   BookingDto,
   ChargeDto,

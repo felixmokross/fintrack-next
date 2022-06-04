@@ -8,21 +8,24 @@ import { AccountCategoryWithAccountsDto, AccountUnitDto } from "./dtos";
 import { Button, ButtonVariant } from "../../shared/button";
 import ValueDisplay from "../../shared/value-display";
 import { AccountUnitKind } from "./enums";
+import { useState } from "react";
+import { NewAccountModal } from "../new-account-modal";
 
 export function AccountList({ accountCategories }: AccountListProps) {
+  const [showNewAccountModal, setShowNewAccountModal] = useState(false);
   return (
     <section aria-label="Account List" className="overflow-hidden border-b">
       <div className="h-full overflow-auto py-4 pl-8 pr-4">
         <div className="mr-4 text-right">
           <Button
             variant={ButtonVariant.SECONDARY}
-            // onClick={() => setShowNewAccountModal(true)}
+            onClick={() => setShowNewAccountModal(true)}
           >
             New Account
           </Button>
-          {/* {showNewAccountModal && (
-          <NewAccountModal onClose={() => setShowNewAccountModal(false)} />
-        )} */}
+          {showNewAccountModal && (
+            <NewAccountModal onClose={() => setShowNewAccountModal(false)} />
+          )}
         </div>
         <ul className="mt-6 space-y-10">
           {accountCategories.map((ac) => (

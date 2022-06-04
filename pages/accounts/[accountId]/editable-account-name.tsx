@@ -1,4 +1,5 @@
 import { ReactElement, useEffect, useState } from "react";
+import { useRefData } from "../../ref-data-context";
 import api from "../../shared/api";
 import { RenameIcon } from "../../shared/icons";
 import { useReload } from "../../shared/reload";
@@ -73,6 +74,7 @@ function AccountNameEditor({
   onDismiss,
 }: AccountNameEditorProps): ReactElement {
   const reload = useReload();
+  const { invalidateRefData } = useRefData();
   return (
     <form
       onSubmit={(e) => {
@@ -109,6 +111,7 @@ function AccountNameEditor({
 
     onSave();
 
+    invalidateRefData();
     reload();
   }
 

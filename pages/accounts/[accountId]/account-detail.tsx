@@ -11,7 +11,7 @@ import { AccountType, AccountUnitKind } from "../shared/enums";
 import { AccountUnitDto, StockAccountUnitDto } from "../shared/dtos";
 import { AccountDetailDto } from "./dtos";
 import { useRefData } from "../../ref-data-context";
-import TextSkeleton, { TextSkeletonLength } from "../../shared/text-skeleton";
+import { TextSkeleton, TextSkeletonLength } from "../../shared/skeletons";
 import { DayLedgerDto } from "../../shared/day-ledgers/dtos";
 import { AccountCategoryType } from "../../shared/account-categories/enums";
 import ValueDisplay from "../../shared/value-display";

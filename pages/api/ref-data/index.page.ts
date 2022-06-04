@@ -1,6 +1,10 @@
 import { withApiAuthRequired } from "@auth0/nextjs-auth0";
 import { Account, toAccountDto } from "../../accounts/shared/documents.server";
 import {
+  AccountCategory,
+  toAccountCategoryDto,
+} from "../../shared/account-categories/documents.server";
+import {
   Currency,
   toCurrencyDto,
 } from "../../shared/currencies/documents.server";
@@ -22,14 +26,21 @@ export default withApiAuthRequired(async function getRefData(req, res) {
 
   const db = await getTenantDb(req, res);
 
-  const [currencies, stocks, incomeCategories, expenseCategories, accounts] =
-    await Promise.all([
-      getCurrencies(),
-      getStocks(),
-      getIncomeCategories(),
-      getExpenseCategories(),
-      getAccounts(),
-    ]);
+  const [
+    currencies,
+    stocks,
+    incomeCategories,
+    expenseCategories,
+    accounts,
+    accountCategories,
+  ] = await Promise.all([
+    getCurrencies(),
+    getStocks(),
+    getIncomeCategories(),
+    getExpenseCategories(),
+    getAccounts(),
+    getAccountCategories(),
+  ]);
 
   return res.json({
     currencies,
@@ -37,6 +48,7 @@ export default withApiAuthRequired(async function getRefData(req, res) {
     incomeCategories,
     expenseCategories,
     accounts,
+    accountCategories,
   } as RefDataDto);
 
   async function getCurrencies() {
@@ -89,6 +101,19 @@ export default withApiAuthRequired(async function getRefData(req, res) {
           .sort({ name: 1, unit: 1, "unit.currency": 1 })
           .toArray()
       ).map(toAccountDto),
+      (c) => c._id
+    );
+  }
+
+  async function getAccountCategories() {
+    return byKey(
+      (
+        await db
+          .collection<AccountCategory>("accountCategories")
+          .find()
+          .sort({ order: 1 })
+          .toArray()
+      ).map(toAccountCategoryDto),
       (c) => c._id
     );
   }

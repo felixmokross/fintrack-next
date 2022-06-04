@@ -1,23 +1,34 @@
 import { createContext, PropsWithChildren, useContext } from "react";
-import useSWR from "swr";
+import useSWR, { useSWRConfig } from "swr";
 import api from "./shared/api";
 import { RefDataDto } from "./shared/ref-data/dtos";
 
 export function RefDataProvider({ children }: PropsWithChildren<{}>) {
   const { data } = useSWR<RefDataDto>("/api/ref-data", api);
+  const { mutate } = useSWRConfig();
 
   return (
-    <RefDataContext.Provider value={data}>{children}</RefDataContext.Provider>
+    <RefDataContext.Provider value={{ ...data, invalidateRefData }}>
+      {children}
+    </RefDataContext.Provider>
   );
+
+  async function invalidateRefData() {
+    await mutate("/api/ref-data");
+  }
 }
 
-export const RefDataContext = createContext<RefDataDto | undefined | null>(
-  null
+export const RefDataContext = createContext<RefDataContextValue | undefined>(
+  undefined
 );
 
-export function useRefData(): Partial<RefDataDto> {
+export function useRefData(): RefDataContextValue {
   const refData = useContext(RefDataContext);
-  if (refData === null) throw new Error("Must be used in RefDataProvider!");
+  if (!refData) throw new Error("Must be used in RefDataProvider!");
 
-  return refData || {};
+  return refData;
 }
+
+export type RefDataContextValue = Partial<RefDataDto> & {
+  invalidateRefData: () => Promise<void>;
+};
