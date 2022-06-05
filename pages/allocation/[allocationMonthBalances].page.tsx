@@ -25,10 +25,7 @@ export default function AllocationPage({ data, total }: AllocationPageProps) {
           <div className="flex rounded-md shadow-sm">
             <ButtonGroup // TODO these should be made links
               className="rounded-l-md"
-              isActive={
-                (allocationMonthBalances as AllocationMonthBalances) ===
-                "begin-of-month"
-              }
+              isActive={allocationMonthBalances === "begin-of-month"}
               onClick={() => replace("begin-of-month")}
             >
               Begin of Month
