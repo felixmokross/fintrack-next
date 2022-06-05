@@ -9,6 +9,7 @@ import { PropsWithChildren } from "react";
 import { LoadingIndicator } from "./loading-indicator";
 import { ThemeProvider } from "./shared/theme-context";
 import { RefDataProvider } from "./ref-data-context";
+import { Button, ButtonVariant } from "./shared/button";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -26,8 +27,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                   </div>
 
                   <div className="flex items-center sm:space-x-8">
-                    {/* <ThemeSettingSwitcher />
-              <LogoutButton /> */}
+                    <LogoutButton />
                   </div>
                 </div>
               </div>
@@ -57,5 +57,16 @@ function NavLink({ children, href, ...props }: PropsWithChildren<LinkProps>) {
         {children}
       </a>
     </Link>
+  );
+}
+
+function LogoutButton() {
+  return (
+    <Button
+      variant={ButtonVariant.SECONDARY}
+      onClick={() => (location.href = "/api/auth/logout")}
+    >
+      Logout
+    </Button>
   );
 }
