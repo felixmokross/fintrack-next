@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "format": "pnpm prettier --write .",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "call-updater": "cd .github/actions/call-updater && pnpm start"
   },
   "dependencies": {
     "@actions/core": "^1.8.2",
