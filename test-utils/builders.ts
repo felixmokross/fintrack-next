@@ -26,7 +26,7 @@ import {
 import { BookingType } from "../pages/shared/transactions/enums";
 import { StockDto } from "../pages/shared/stocks/dtos";
 import { CurrencyDto } from "../pages/shared/currencies/dtos";
-import { ValueChangeFormValues } from "../pages/shared/transactions/value-change-form";
+import { ValueChangeFormValues } from "../pages/shared/transactions/types";
 
 export function buildAccount(values: Partial<AccountDto> = {}): AccountDto {
   return {

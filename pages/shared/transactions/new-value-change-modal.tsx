@@ -2,11 +2,11 @@ import { ReactElement } from "react";
 import {
   transformValueChangeFormValuesToSaveTransactionDto,
   ValueChangeForm,
-  ValueChangeFormValues,
 } from "./value-change-form";
 import { Modal } from "../modal";
 import { useReload } from "../reload";
 import api from "../api";
+import { ValueChangeFormValues } from "./types";
 
 export function NewValueChangeModal({
   accountId,
