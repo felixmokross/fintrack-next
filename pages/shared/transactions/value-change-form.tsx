@@ -12,6 +12,7 @@ import Form from "../forms/form";
 import { Input } from "../forms/input";
 import SubmitButton from "../forms/submit-button";
 import { Button, ButtonVariant } from "../button";
+import { ValueChangeFormValues } from "./types";
 
 export function ValueChangeForm({
   title,
@@ -103,12 +104,6 @@ export function transformValueChangeFormValuesToSaveTransactionDto(
       { type: BookingType.CHARGE, accountId, amount, note: null },
     ];
   }
-}
-
-export interface ValueChangeFormValues {
-  date: string;
-  note: string;
-  valueChange: string;
 }
 
 function validateValueChange(

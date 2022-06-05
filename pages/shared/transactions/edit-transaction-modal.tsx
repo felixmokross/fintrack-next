@@ -34,12 +34,12 @@ export function EditTransactionModal({
   onClose,
 }: EditTransactionModalProps) {
   const transactionUrl = `/api/transactions/${transactionId}`;
-  const { data } = useSWR<TransactionDto>(transactionUrl, api);
+  const { data, isValidating } = useSWR<TransactionDto>(transactionUrl, api);
   const { mutate } = useSWRConfig();
   const { accounts } = useRefData();
   const reload = useReload();
 
-  if (!accounts || !data)
+  if (!accounts || !data || isValidating)
     return (
       <Modal size={ModalSize.LARGE}>
         <TransactionFormSkeleton title={title} />
@@ -56,10 +56,10 @@ export function EditTransactionModal({
         onSubmit={async (values) => {
           await updateTransaction({ transactionId, values });
 
+          onClose();
+
           mutate(transactionUrl);
           reload();
-
-          onClose();
         }}
         onClose={onClose}
       />
@@ -67,13 +67,12 @@ export function EditTransactionModal({
   );
 
   async function updateTransaction({
-    transactionId,
     values,
   }: {
     transactionId: string;
     values: TransactionFormValues;
   }): Promise<void> {
-    await api(`/api/transactions/${transactionId}`, "PUT", {
+    await api(transactionUrl, "PUT", {
       date: dayjs.utc(values.date, dateFormat).format("YYYY-MM-DD"),
       note: values.note || undefined,
       bookings: values.bookings.map(toSaveTransactionBookingDto),
