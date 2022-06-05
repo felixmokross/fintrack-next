@@ -7,7 +7,7 @@ import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import minMax from "dayjs/plugin/minMax";
 import quarterOfYear from "dayjs/plugin/quarterOfYear";
-// import advancedFormat from "dayjs/plugin/advancedFormat";
+import advancedFormat from "dayjs/plugin/advancedFormat";
 // import "dayjs/locale/de-ch";
 
 dayjs.extend(utc);
@@ -18,4 +18,4 @@ dayjs.extend(isSameOrBefore);
 dayjs.extend(customParseFormat);
 dayjs.extend(minMax);
 dayjs.extend(quarterOfYear);
-// dayjs.extend(advancedFormat);
+dayjs.extend(advancedFormat);
