@@ -3,6 +3,7 @@ import ActionsButton from "../../shared/actions-button";
 import Dropdown from "../../shared/dropdown/dropdown";
 import { DropdownButton } from "../../shared/dropdown/dropdown-button";
 import { DeleteIcon, EditIcon } from "../../shared/icons";
+import { EditTransactionModal } from "../../shared/transactions/edit-transaction-modal";
 import { DeleteTransactionModal } from "../../transactions/delete-transaction-modal";
 
 export function ActionsMenu({
@@ -36,23 +37,23 @@ export function ActionsMenu({
           Delete
         </DropdownButton>
       </Dropdown>
-      {/* {showEditTransactionOrValueChange && (
-                <>
-                    {editMode === EditMode.TRANSACTION && (
-                        <EditTransactionModal
-                            transactionId={transactionId}
-                            accountId={accountId}
-                            onClose={() => setShowEditTransactionOrValueChange(false)}
-                        />
-                    )}
-                    {editMode === EditMode.VALUE_CHANGE && (
+      {showEditTransactionOrValueChange && (
+        <>
+          {editMode === EditMode.TRANSACTION && (
+            <EditTransactionModal
+              transactionId={transactionId}
+              accountId={accountId}
+              onClose={() => setShowEditTransactionOrValueChange(false)}
+            />
+          )}
+          {/* {editMode === EditMode.VALUE_CHANGE && (
                         <EditValueChangeModal
                             transactionId={transactionId}
                             onClose={() => setShowEditTransactionOrValueChange(false)}
                         />
-                    )}
-                </>
-            )} */}
+                    )} */}
+        </>
+      )}
       {showDeleteTransaction && (
         <DeleteTransactionModal
           transactionId={transactionId}
