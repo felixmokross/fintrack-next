@@ -22,7 +22,7 @@ async function callApi(url, method, token) {
 }
 
 async function fetchWithRetries(url, method, token) {
-  const maxNumberOfTries = 3;
+  const maxNumberOfTries = 5;
   let response;
   for (let i = 0; i < maxNumberOfTries; i++) {
     if (i > 0) console.log(`Timeout, retrying (${i + 1}/${maxNumberOfTries})…`);

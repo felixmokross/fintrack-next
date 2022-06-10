@@ -1,11 +1,13 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@actions/core': ^1.8.2
   '@vercel/ncc': ^0.34.0
   dotenv: ^16.0.1
   node-fetch: ^3.2.4
 
 dependencies:
+  '@actions/core': 1.8.2
   node-fetch: 3.2.4
 
 devDependencies:
@@ -13,6 +15,18 @@ devDependencies:
   dotenv: 16.0.1
 
 packages:
+
+  /@actions/core/1.8.2:
+    resolution: {integrity: sha512-FXcBL7nyik8K5ODeCKlxi+vts7torOkoDAKfeh61EAkAy1HAvwn9uVzZBY0f15YcQTcZZ2/iSGBFHEuioZWfDA==}
+    dependencies:
+      '@actions/http-client': 2.0.1
+    dev: false
+
+  /@actions/http-client/2.0.1:
+    resolution: {integrity: sha512-PIXiMVtz6VvyaRsGY268qvj57hXQEpsYogYOu2nrQhlf+XCGmZstmuZBbAybUl1nQGnvS1k1eEsQ69ZoD7xlSw==}
+    dependencies:
+      tunnel: 0.0.6
+    dev: false
 
   /@vercel/ncc/0.34.0:
     resolution: {integrity: sha512-G9h5ZLBJ/V57Ou9vz5hI8pda/YQX5HQszCs3AmIus3XzsmRn/0Ptic5otD3xVST8QLKk7AMk7AqpsyQGN7MZ9A==}
@@ -56,6 +70,11 @@ packages:
       data-uri-to-buffer: 4.0.0
       fetch-blob: 3.1.5
       formdata-polyfill: 4.0.10
+    dev: false
+
+  /tunnel/0.0.6:
+    resolution: {integrity: sha512-1h/Lnq9yajKY2PEbBadPXj3VxsDDu844OnaAo52UVmIzIvwwtBPIuNvkjuzBlTWpfJyUbG3ez0KSBibQkj4ojg==}
+    engines: {node: '>=0.6.11 <=0.7.0 || >=0.7.3'}
     dev: false
 
   /web-streams-polyfill/3.2.1:
