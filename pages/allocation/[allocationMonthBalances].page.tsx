@@ -8,9 +8,9 @@ import { MonthBalances } from "../shared/balances/documents.server";
 import { AccountCategory } from "../shared/account-categories/documents.server";
 import { useRouter } from "next/router";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
-import { ChartPageShell } from "../shared/chart-page-shell";
 import { ButtonGroup } from "../shared/button-group";
 import { getTenantDb } from "../shared/util.server";
+import { FintrackChart } from "../shared/chart-utils";
 
 export default function AllocationPage({ data, total }: AllocationPageProps) {
   const { query, replace } = useRouter();
@@ -19,59 +19,58 @@ export default function AllocationPage({ data, total }: AllocationPageProps) {
   if (!data) return <p>No data</p>;
 
   return (
-    <ChartPageShell>
-      <div className="flex flex-col px-8">
-        <div className="flex shrink-0 space-x-8 pt-4 pb-3">
-          <div className="flex rounded-md shadow-sm">
-            <ButtonGroup // TODO these should be made links
-              className="rounded-l-md"
-              isActive={allocationMonthBalances === "begin-of-month"}
-              onClick={() => replace("begin-of-month")}
-            >
-              Begin of Month
-            </ButtonGroup>
-            <ButtonGroup
-              className="-ml-px rounded-r-md"
-              isActive={allocationMonthBalances === "today"}
-              onClick={() => replace("today")}
-            >
-              Today
-            </ButtonGroup>
-          </div>
-        </div>
-        <div className="grow">
-          <Doughnut
-            data={{
-              labels: data.map(([label]) => label),
-              datasets: [{ data: data.map(([, value]) => value) }],
-            }}
-            options={{
-              maintainAspectRatio: false,
-              layout: { padding: 30 },
-              plugins: {
-                datalabels: {
-                  formatter: (value, { dataIndex }) =>
-                    formatAllocationLabel(
-                      data[dataIndex][0],
-                      value,
-                      new Decimal(total!)
-                    ),
-                  backgroundColor: "#3B82F6",
-                  borderRadius: 4,
-                  color: "white",
-                  font: { weight: "normal" },
-                  padding: 6,
-                  align: "end",
-                  anchor: "end",
-                },
-                legend: { display: false },
-                tooltip: { enabled: false },
-              },
-            }}
-          />
+    <div className="flex flex-col px-8">
+      <div className="flex shrink-0 space-x-8 pt-4 pb-3">
+        <div className="flex rounded-md shadow-sm">
+          <ButtonGroup // TODO these should be made links
+            className="rounded-l-md"
+            isActive={allocationMonthBalances === "begin-of-month"}
+            onClick={() => replace("begin-of-month")}
+          >
+            Begin of Month
+          </ButtonGroup>
+          <ButtonGroup
+            className="-ml-px rounded-r-md"
+            isActive={allocationMonthBalances === "today"}
+            onClick={() => replace("today")}
+          >
+            Today
+          </ButtonGroup>
         </div>
       </div>
-    </ChartPageShell>
+      <div className="grow">
+        <FintrackChart
+          type="doughnut"
+          data={{
+            labels: data.map(([label]) => label),
+            datasets: [{ data: data.map(([, value]) => value) }],
+          }}
+          options={{
+            maintainAspectRatio: false,
+            layout: { padding: 30 },
+            plugins: {
+              datalabels: {
+                formatter: (value, { dataIndex }) =>
+                  formatAllocationLabel(
+                    data[dataIndex][0],
+                    value,
+                    new Decimal(total!)
+                  ),
+                backgroundColor: "#3B82F6",
+                borderRadius: 4,
+                color: "white",
+                font: { weight: "normal" },
+                padding: 6,
+                align: "end",
+                anchor: "end",
+              },
+              legend: { display: false },
+              tooltip: { enabled: false },
+            },
+          }}
+        />
+      </div>
+    </div>
   );
 }
 

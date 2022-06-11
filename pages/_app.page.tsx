@@ -7,7 +7,6 @@ import { UserProvider } from "@auth0/nextjs-auth0";
 import { useRouter } from "next/router";
 import { PropsWithChildren } from "react";
 import { LoadingIndicator } from "./loading-indicator";
-import { ThemeProvider } from "./shared/theme-context";
 import { RefDataProvider } from "./ref-data-context";
 import { Button, ButtonVariant } from "./shared/button";
 
@@ -15,26 +14,25 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <UserProvider>
       <RefDataProvider>
-        <ThemeProvider>
-          <div className="grid h-screen grid-rows-layout">
-            <nav className="border-b border-gray-300 dark:border-gray-500">
-              <div className="mx-auto px-2 sm:px-6 lg:px-8">
-                <div className="flex h-16 flex-1 items-center justify-center sm:items-stretch sm:justify-between">
-                  <div className="hidden sm:flex sm:space-x-8">
-                    <NavLink href="/allocation">Allocation</NavLink>
-                    <NavLink href="/accounts">Accounts</NavLink>
-                    <LoadingIndicator />
-                  </div>
+        <div className="grid h-screen grid-rows-layout">
+          <nav className="border-b border-gray-300 dark:border-gray-500">
+            <div className="mx-auto px-2 sm:px-6 lg:px-8">
+              <div className="flex h-16 flex-1 items-center justify-center sm:items-stretch sm:justify-between">
+                <div className="hidden sm:flex sm:space-x-8">
+                  <NavLink href="/balances">Balances</NavLink>
+                  <NavLink href="/allocation">Allocation</NavLink>
+                  <NavLink href="/accounts">Accounts</NavLink>
+                  <LoadingIndicator />
+                </div>
 
-                  <div className="flex items-center sm:space-x-8">
-                    <LogoutButton />
-                  </div>
+                <div className="flex items-center sm:space-x-8">
+                  <LogoutButton />
                 </div>
               </div>
-            </nav>
-            <Component {...pageProps} />
-          </div>
-        </ThemeProvider>
+            </div>
+          </nav>
+          <Component {...pageProps} />
+        </div>
       </RefDataProvider>
     </UserProvider>
   );
