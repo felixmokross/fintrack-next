@@ -290,9 +290,9 @@ function selectData(
       ]);
     default:
       return monthBalances.map(([key, mb]) => {
-        let value = deserializeDecimal(
-          mb.accountCategories[dataType]
-        ).toNumber();
+        let value = mb.accountCategories[dataType]
+          ? deserializeDecimal(mb.accountCategories[dataType]).toNumber()
+          : 0;
 
         if (
           accountCategories[dataType].type === AccountCategoryType.LIABILITY
