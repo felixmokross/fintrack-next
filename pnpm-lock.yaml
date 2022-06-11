@@ -1,7 +1,6 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@actions/core': ^1.8.2
   '@auth0/nextjs-auth0': ^1.9.0
   '@tailwindcss/forms': ^0.5.2
   '@testing-library/jest-dom': ^5.16.4
@@ -40,7 +39,6 @@ specifiers:
   uuid: ^8.3.2
 
 dependencies:
-  '@actions/core': 1.8.2
   '@auth0/nextjs-auth0': 1.9.0_next@12.1.6
   '@testing-library/jest-dom': 5.16.4
   '@testing-library/react': 13.3.0_react-dom@18.1.0+react@18.1.0
@@ -81,18 +79,6 @@ devDependencies:
   uuid: 8.3.2
 
 packages:
-
-  /@actions/core/1.8.2:
-    resolution: {integrity: sha512-FXcBL7nyik8K5ODeCKlxi+vts7torOkoDAKfeh61EAkAy1HAvwn9uVzZBY0f15YcQTcZZ2/iSGBFHEuioZWfDA==}
-    dependencies:
-      '@actions/http-client': 2.0.1
-    dev: false
-
-  /@actions/http-client/2.0.1:
-    resolution: {integrity: sha512-PIXiMVtz6VvyaRsGY268qvj57hXQEpsYogYOu2nrQhlf+XCGmZstmuZBbAybUl1nQGnvS1k1eEsQ69ZoD7xlSw==}
-    dependencies:
-      tunnel: 0.0.6
-    dev: false
 
   /@ampproject/remapping/2.2.0:
     resolution: {integrity: sha512-qRmjj8nj9qmLTQXXmaR1cck3UXSRMPrbsLJAasZpF+t3riI71BXed5ebIOYwQntykeZuhjsdweEc9BxH5Jc26w==}
@@ -4964,11 +4950,6 @@ packages:
       tslib: 1.14.1
       typescript: 4.6.4
     dev: true
-
-  /tunnel/0.0.6:
-    resolution: {integrity: sha512-1h/Lnq9yajKY2PEbBadPXj3VxsDDu844OnaAo52UVmIzIvwwtBPIuNvkjuzBlTWpfJyUbG3ez0KSBibQkj4ojg==}
-    engines: {node: '>=0.6.11 <=0.7.0 || >=0.7.3'}
-    dev: false
 
   /type-check/0.3.2:
     resolution: {integrity: sha1-WITKtRLPHTVeP7eE8wgEsrUg23I=}
