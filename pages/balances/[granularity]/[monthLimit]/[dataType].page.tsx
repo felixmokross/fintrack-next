@@ -17,9 +17,15 @@ import {
 import { cn } from "../../../shared/classnames";
 import { deserializeDecimal } from "../../../shared/serialization.server";
 import { ButtonSkeleton } from "../../../shared/skeletons";
-import { byKey, formatUnitValue, RoundingMode } from "../../../shared/util";
+import {
+  byKey,
+  formatUnitValue,
+  getTitle,
+  RoundingMode,
+} from "../../../shared/util";
 import { getTenantDb } from "../../../shared/util.server";
 import "chartjs-plugin-datalabels";
+import Head from "next/head";
 
 const BalancesPage: NextPage<BalancesPageProps, BalancesPageParams> = ({
   data,
@@ -35,6 +41,9 @@ const BalancesPage: NextPage<BalancesPageProps, BalancesPageParams> = ({
 
   return (
     <div className="flex flex-col px-8">
+      <Head>
+        <title>{getTitle("Balances")}</title>
+      </Head>
       <div className="flex shrink-0 space-x-8 pt-4 pb-3">
         <div className="flex rounded-md shadow-sm">
           <ButtonGroup // TODO these should be made links

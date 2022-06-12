@@ -1,6 +1,6 @@
 import { dropRight, last, orderBy } from "lodash";
 import { Doughnut } from "react-chartjs-2";
-import { byKey, sum } from "../shared/util";
+import { byKey, getTitle, sum } from "../shared/util";
 import { formatAllocationLabel } from "./format-allocation-label";
 import "chartjs-plugin-datalabels";
 import Decimal from "decimal.js-light";
@@ -11,6 +11,7 @@ import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { ButtonGroup } from "../shared/button-group";
 import { getTenantDb } from "../shared/util.server";
 import { FintrackChart } from "../shared/chart-utils";
+import Head from "next/head";
 
 export default function AllocationPage({ data, total }: AllocationPageProps) {
   const { query, replace } = useRouter();
@@ -20,6 +21,9 @@ export default function AllocationPage({ data, total }: AllocationPageProps) {
 
   return (
     <div className="flex flex-col px-8">
+      <Head>
+        <title>{getTitle("Allocation")}</title>
+      </Head>
       <div className="flex shrink-0 space-x-8 pt-4 pb-3">
         <div className="flex rounded-md shadow-sm">
           <ButtonGroup // TODO these should be made links

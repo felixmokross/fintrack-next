@@ -8,7 +8,7 @@ import { AccountCategoryWithAccountsDto } from "../shared/dtos";
 import { Db } from "mongodb";
 import { Account, toAccountUnitDto } from "../shared/documents.server";
 import { serializeId } from "../../shared/serialization.server";
-import { ensure } from "../../shared/util";
+import { ensure, getTitle } from "../../shared/util";
 import { AccountDetailDto } from "./dtos";
 import { DayLedgerDto, DayLedgerLineDto } from "../../shared/day-ledgers/dtos";
 import {
@@ -23,6 +23,7 @@ import {
   DepreciationDto,
 } from "../../shared/transactions/dtos";
 import { getTenantDb } from "../../shared/util.server";
+import Head from "next/head";
 
 const AccountsDetailPage: NextPage<
   AccountsDetailPageProps,
@@ -30,6 +31,9 @@ const AccountsDetailPage: NextPage<
 > = ({ accountCategories, account, dayLedgers }) => {
   return (
     <PageLayout>
+      <Head>
+        <title>{getTitle(account.name)}</title>
+      </Head>
       <AccountList accountCategories={accountCategories} />
       <AccountDetailLayout>
         <AccountDetail account={account} dayLedgers={dayLedgers} />

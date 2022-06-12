@@ -1,5 +1,9 @@
 import Decimal, { Numeric } from "decimal.js-light";
 
+export function getTitle(title?: string) {
+  return title ? `${title} · Fintrack` : "Fintrack";
+}
+
 export const dateFormat = "DD MMM YYYY";
 
 export function ensure<T>(value: T | undefined): T {
