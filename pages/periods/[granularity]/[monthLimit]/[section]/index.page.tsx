@@ -7,8 +7,8 @@ export default function PeriodsPage() {
     <>
       <Head>
         <title>{getTitle("Periods")}</title>
-        <p>hello world</p>
       </Head>
+      <p>hello world</p>
     </>
   );
 }
