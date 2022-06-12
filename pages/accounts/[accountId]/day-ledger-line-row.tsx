@@ -100,7 +100,7 @@ function ChargeDepositBookingLabel({
   const { accounts } = useRefData();
   if (!accounts) return <TextSkeleton length={TextSkeletonLength.MEDIUM} />;
   return (
-    <Link href={`../${booking.accountId}`}>
+    <Link href={`/accounts/${booking.accountId}`}>
       <a className="text-blue-500 hover:underline dark:text-blue-400">
         {accounts[booking.accountId].name}
       </a>
