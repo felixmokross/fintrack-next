@@ -179,7 +179,11 @@ const PeriodsPage: NextPage<PeriodsPageProps> = ({
               const index = chart.scales.x.getValueForPixel(e.x);
               if (index === undefined) return;
 
-              push(`/periods/${granularity}/${data[index][0]}`);
+              push(
+                `/periods/${granularity}/details/${data[
+                  index
+                ][0].toLowerCase()}`
+              );
             },
             maintainAspectRatio: false,
             layout: { padding: { top: 30 } },
