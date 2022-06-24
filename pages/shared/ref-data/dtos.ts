@@ -4,6 +4,7 @@ import { CurrencyDto } from "../currencies/dtos";
 import { ExpenseCategoryDto } from "../expense-categories/dtos";
 import { IncomeCategoryDto } from "../income-categories/dtos";
 import { StockDto } from "../stocks/dtos";
+import { ValueTypeDto } from "../value-types/dtos";
 
 export type RefDataDto = {
   currencies: Record<string, CurrencyDto>;
@@ -12,4 +13,5 @@ export type RefDataDto = {
   expenseCategories: Record<string, ExpenseCategoryDto>;
   accounts: Record<string, AccountDto>;
   accountCategories: Record<string, AccountCategoryDto>;
+  valueTypes: Record<string, ValueTypeDto>;
 };

@@ -17,6 +17,8 @@ import { Stock } from "../../shared/stocks/documents.server";
 import { StockDto } from "../../shared/stocks/dtos";
 import { byKey, ensure } from "../../shared/util";
 import { getTenantDb } from "../../shared/util.server";
+import { ValueType } from "../../shared/value-types/documents.server";
+import { ValueTypeDto } from "../../shared/value-types/dtos";
 
 export default withApiAuthRequired(async function getRefData(req, res) {
   if (req.method !== "GET") {
@@ -33,6 +35,7 @@ export default withApiAuthRequired(async function getRefData(req, res) {
     expenseCategories,
     accounts,
     accountCategories,
+    valueTypes,
   ] = await Promise.all([
     getCurrencies(),
     getStocks(),
@@ -40,6 +43,7 @@ export default withApiAuthRequired(async function getRefData(req, res) {
     getExpenseCategories(),
     getAccounts(),
     getAccountCategories(),
+    getValueTypes(),
   ]);
 
   return res.json({
@@ -49,6 +53,7 @@ export default withApiAuthRequired(async function getRefData(req, res) {
     expenseCategories,
     accounts,
     accountCategories,
+    valueTypes,
   } as RefDataDto);
 
   async function getCurrencies() {
@@ -117,6 +122,15 @@ export default withApiAuthRequired(async function getRefData(req, res) {
       (c) => c._id
     );
   }
+
+  async function getValueTypes() {
+    return byKey(
+      (await db.collection<ValueType>("valueTypes").find().toArray()).map(
+        toValueTypeDto
+      ),
+      (vt) => vt._id
+    );
+  }
 });
 
 function toStockDto(stock: Stock): StockDto {
@@ -142,5 +156,12 @@ function toExpenseCategoryDto(
   return {
     _id: ensure(expenseCategory._id).toHexString(),
     name: expenseCategory.name,
+  };
+}
+
+function toValueTypeDto(valueType: ValueType): ValueTypeDto {
+  return {
+    _id: valueType._id.toHexString(),
+    name: valueType.name,
   };
 }

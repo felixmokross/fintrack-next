@@ -1,15 +1,1 @@
-import { withPageAuthRequired } from "@auth0/nextjs-auth0";
-import Head from "next/head";
-import { getTitle } from "../../../../shared/util";
-
-export default function PeriodsPage() {
-  return (
-    <>
-      <Head>
-        <title>{getTitle("Periods")}</title>
-      </Head>
-      <p>hello world</p>
-    </>
-  );
-}
-export const getServerSideProps = withPageAuthRequired<{}, {}>();
+export { default, getServerSideProps } from "./[selectedCategoryId].page";

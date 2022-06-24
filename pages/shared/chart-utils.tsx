@@ -127,4 +127,4 @@ export type FintrackChartProps<TChartType extends SupportedChartType> = Omit<
   type: TChartType;
 };
 
-export type SupportedChartType = "line" | "doughnut";
+export type SupportedChartType = "line" | "doughnut" | "bar";
