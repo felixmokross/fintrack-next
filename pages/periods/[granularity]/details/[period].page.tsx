@@ -1,7 +1,8 @@
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import dayjs from "dayjs";
-import { orderBy } from "lodash";
+import { orderBy, padStart } from "lodash";
 import { NextPage } from "next";
+import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useRefData } from "../../../ref-data-context";
@@ -25,6 +26,7 @@ import { PeriodType } from "../../../shared/periods/enums";
 import { TextSkeleton, TextSkeletonLength } from "../../../shared/skeletons";
 import {
   formatUnitValue,
+  getTitle,
   RoundingMode,
   sum,
   transformRecord,
@@ -32,8 +34,15 @@ import {
 import { getTenantDb } from "../../../shared/util.server";
 
 const PeriodDetailPage: NextPage<PeriodDetailPageProps> = ({ period }) => {
+  const { query } = useRouter();
+
+  const granularity = query.granularity as Granularity;
+  const periodParam = query.period as string;
   return (
     <div className="flex gap-12">
+      <Head>
+        <title>{getTitle(getPeriodLabel(granularity, periodParam))}</title>
+      </Head>
       <table>
         <thead>
           <tr>
@@ -124,11 +133,12 @@ export const getServerSideProps = withPageAuthRequired<
   PeriodDetailPageParams
 >({
   getServerSideProps: async ({ req, res, params }) => {
+    if (!params) throw new Error("params is required");
     const db = await getTenantDb(req, res);
 
-    const period = await db
-      .collection<MonthPeriod>("monthPeriods")
-      .findOne({ _id: getPeriodId() });
+    const period = await db.collection<MonthPeriod>("monthPeriods").findOne({
+      _id: parsePeriodParam(params.granularity, params.period).toDate(),
+    });
     if (!period) {
       return { notFound: true };
     }
@@ -138,20 +148,37 @@ export const getServerSideProps = withPageAuthRequired<
         period: toPeriodDto(period),
       },
     };
-
-    function getPeriodId() {
-      if (!params) throw new Error("params is required");
-      switch (params.granularity) {
-        case "months":
-          return dayjs.utc(params.period, "YYYY-MM").toDate();
-        case "quarters":
-          return dayjs.utc(params.period, "YYYY-[q]Q").toDate();
-        case "years":
-          return dayjs.utc(params.period, "YYYY").toDate();
-      }
-    }
   },
 });
+
+function parsePeriodParam(granularity: Granularity, period: string) {
+  switch (granularity) {
+    case "months":
+      return dayjs.utc(period, "YYYY-MM", true);
+    case "quarters":
+      const [year, quarter] = period.split("-q");
+      const quarterNumber = parseInt(quarter, 10);
+      return dayjs.utc(
+        `${year}-${padStart((quarterNumber * 3 - 2).toString(), 2, "0")}`,
+        "YYYY-MM",
+        true
+      );
+    case "years":
+      return dayjs.utc(period, "YYYY", true);
+  }
+}
+
+function getPeriodLabel(granularity: Granularity, period: string) {
+  const parsedPeriod = parsePeriodParam(granularity, period);
+  switch (granularity) {
+    case "months":
+      return parsedPeriod.format("MMM YYYY");
+    case "quarters":
+      return parsedPeriod.format("[Q]Q YYYY");
+    case "years":
+      return parsedPeriod.format("YYYY");
+  }
+}
 
 function CategoryLabel({
   type,
